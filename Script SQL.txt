@@ -1,0 +1,107 @@
+-- =====================================================
+-- VINUTTO CRM - Módulo de Imóveis
+-- Execute este script no banco de produção
+-- =====================================================
+
+-- Tabela principal de imóveis
+CREATE TABLE IF NOT EXISTS imoveis (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    codigo VARCHAR(20) NOT NULL UNIQUE,          -- Ex: IMV-2026-0001
+    titulo VARCHAR(200) NOT NULL,
+    tipo VARCHAR(50) NOT NULL,                   -- Apartamento, Casa, Cobertura, Terreno, Sala, Galpão...
+    finalidade ENUM('venda','locacao','venda_locacao') NOT NULL DEFAULT 'venda',
+    status ENUM('disponivel','reservado','vendido','alugado','inativo') NOT NULL DEFAULT 'disponivel',
+    
+    -- Localização
+    endereco VARCHAR(255),
+    numero VARCHAR(20),
+    complemento VARCHAR(100),
+    bairro VARCHAR(100),
+    cidade VARCHAR(100),
+    estado CHAR(2),
+    cep VARCHAR(10),
+    
+    -- Valores
+    valor_venda DECIMAL(15,2) NULL,
+    valor_locacao DECIMAL(12,2) NULL,           -- valor mensal
+    valor_condominio DECIMAL(10,2) NULL,
+    valor_iptu DECIMAL(10,2) NULL,
+    
+    -- Características físicas
+    area_total DECIMAL(10,2) NULL,              -- m²
+    area_util DECIMAL(10,2) NULL,               -- m²
+    quartos TINYINT UNSIGNED DEFAULT 0,
+    suites TINYINT UNSIGNED DEFAULT 0,
+    banheiros TINYINT UNSIGNED DEFAULT 0,
+    vagas TINYINT UNSIGNED DEFAULT 0,
+    
+    -- Descrição e extras
+    descricao TEXT,
+    caracteristicas JSON NULL,                  -- ["piscina","academia","mobiliado","aceita_pet"...]
+    tour_url VARCHAR(500) NULL,
+    video_url VARCHAR(500) NULL,
+    
+    -- Relacionamentos
+    corretor_id VARCHAR(50) NULL,               -- FK usuarios.id
+    construtora_id INT NULL,                    -- FK construtoras.id
+    empreendimento_id INT NULL,                 -- FK empreendimentos.id
+    
+    -- Controle
+    capa_url VARCHAR(500) NULL,                 -- foto principal
+    observacoes_internas TEXT NULL,
+    ativo TINYINT(1) NOT NULL DEFAULT 1,
+    criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    atualizado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    INDEX idx_status (status),
+    INDEX idx_finalidade (finalidade),
+    INDEX idx_cidade (cidade),
+    INDEX idx_corretor (corretor_id),
+    INDEX idx_tipo (tipo),
+    INDEX idx_codigo (codigo)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Fotos dos imóveis
+CREATE TABLE IF NOT EXISTS imovel_fotos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    imovel_id INT NOT NULL,
+    url VARCHAR(500) NOT NULL,
+    ordem SMALLINT UNSIGNED DEFAULT 0,
+    is_capa TINYINT(1) DEFAULT 0,
+    criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (imovel_id) REFERENCES imoveis(id) ON DELETE CASCADE,
+    INDEX idx_imovel (imovel_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Relação Lead ↔ Imóvel (muitos para muitos)
+CREATE TABLE IF NOT EXISTS lead_imovel (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    lead_id INT NOT NULL,
+    imovel_id INT NOT NULL,
+    interesse ENUM('compra','locacao','ambos') DEFAULT 'compra',
+    status_interesse ENUM('interessado','visita_agendada','proposta','descartado') DEFAULT 'interessado',
+    nota TEXT NULL,
+    criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+    atualizado_em DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    UNIQUE KEY uk_lead_imovel (lead_id, imovel_id),
+    FOREIGN KEY (lead_id) REFERENCES leads(id) ON DELETE CASCADE,
+    FOREIGN KEY (imovel_id) REFERENCES imoveis(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Histórico de alterações do imóvel (opcional, mas recomendado)
+CREATE TABLE IF NOT EXISTS imovel_historico (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    imovel_id INT NOT NULL,
+    usuario_id VARCHAR(50) NULL,
+    acao VARCHAR(50) NOT NULL,                  -- status_alterado, preco_alterado, etc.
+    campo VARCHAR(50) NULL,
+    valor_anterior VARCHAR(255) NULL,
+    valor_novo VARCHAR(255) NULL,
+    nota TEXT NULL,
+    criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (imovel_id) REFERENCES imoveis(id) ON DELETE CASCADE,
+    INDEX idx_imovel (imovel_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

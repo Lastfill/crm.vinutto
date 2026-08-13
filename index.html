@@ -1,0 +1,3016 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CRM Vinutto</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+<style>
+:root{--primary:#2563eb;--primary-dark:#1d4ed8;--primary-light:#eff6ff;--success:#059669;--danger:#dc2626;--warning:#d97706;--sidebar-width:260px;--header-height:64px;--bg:#f1f5f9;--surface:#fff;--surface-2:#f8fafc;--border:#e2e8f0;--text:#0f172a;--text-secondary:#475569;--text-muted:#94a3b8;--shadow-sm:0 1px 2px rgba(15,23,42,.04);--shadow-md:0 4px 12px rgba(15,23,42,.06);--shadow-lg:0 12px 32px rgba(15,23,42,.1);--shadow-xl:0 24px 48px rgba(15,23,42,.14);--radius-sm:6px;--radius-md:10px;--radius-lg:14px;--radius-xl:18px;--transition:.2s cubic-bezier(.4,0,.2,1)}
+body.dark-mode{--bg:#0b1220;--surface:#111c2e;--surface-2:#162033;--border:#24334a;--text:#e2e8f0;--text-secondary:#94a3b8;--text-muted:#64748b;--primary-light:#1e3a5f}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;font-size:14px;overflow-x:hidden}
+button,.btn-link{cursor:pointer;border:none;border-radius:var(--radius-md);text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:13px;font-family:inherit;padding:10px 16px;transition:var(--transition);white-space:nowrap}
+button:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-dark)}
+.btn-secondary{background:var(--surface-2);color:var(--text);border:1px solid var(--border)}.btn-secondary:hover{background:var(--border)}
+.btn-success{background:var(--success);color:#fff}.btn-danger{background:var(--danger);color:#fff}
+.btn-admin{background:var(--warning);color:#fff}.btn-export{background:#1d4ed8;color:#fff}.btn-whatsapp{background:#25D366;color:#fff}
+.btn-small{padding:7px 12px!important;font-size:12px!important}.btn-icon-only{width:36px;height:36px;padding:0;border-radius:50%}
+.btn-ghost{background:transparent;color:var(--text-secondary)}.btn-ghost:hover{background:var(--surface-2);transform:none}
+.btn-view-toggle{background:var(--surface);border:1px solid var(--border);color:var(--text-muted)}.btn-view-toggle.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.btn-reset{background:var(--surface)!important;border:1px solid #fef08a!important;color:#213546!important;padding:7px 12px!important;font-size:12px!important}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:14px;font-family:inherit;background:var(--surface);color:var(--text)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.iti{width:100%!important;display:block!important}
+.field-group{display:flex;flex-direction:column;gap:6px}
+.field-group label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px}
+.checkbox-group{display:flex;align-items:center;gap:8px}.checkbox-group input{width:auto}
+.login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#0f172a,#1e3a5f 50%,#123546);padding:24px}
+.login-box{background:var(--surface);padding:40px 36px;border-radius:var(--radius-xl);width:100%;max-width:400px;box-shadow:var(--shadow-xl)}
+.login-logo{text-align:center;margin-bottom:32px}.login-logo-img{height:48px;max-width:220px;object-fit:contain;margin-bottom:12px}
+.login-logo p{color:var(--text-muted);font-size:14px}.login-form{display:flex;flex-direction:column;gap:16px}
+.login-form input{padding:12px 14px;font-size:15px}.login-form button{padding:13px;font-size:15px;margin-top:4px}
+.login-remember{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary)}.login-remember input{width:auto}
+.login-links{font-size:12px}.login-message{font-size:13px;text-align:center;color:var(--danger);min-height:18px}
+.app-layout{display:flex;min-height:100vh}
+.sidebar{width:var(--sidebar-width);background:#0f172a;color:#e2e8f0;display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:200;transition:transform var(--transition)}
+.sidebar-brand{height:var(--header-height);display:flex;align-items:center;gap:12px;padding:0 20px;border-bottom:1px solid rgba(255,255,255,.08)}
+.sidebar-brand img{height:32px}.sidebar-brand span{font-weight:700;font-size:16px}
+.sidebar-nav{flex:1;padding:16px 12px;overflow-y:auto;display:flex;flex-direction:column;gap:4px}
+.nav-item{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:var(--radius-md);color:#94a3b8;font-weight:500;font-size:13.5px;cursor:pointer;border:none;background:transparent;width:100%;text-align:left;font-family:inherit;text-decoration:none}
+.nav-item:hover{background:rgba(255,255,255,.06);color:#e2e8f0;transform:none}
+.nav-item.active{background:var(--primary);color:#fff}
+.nav-item i{width:22px;text-align:center}
+.nav-section-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#64748b;padding:16px 14px 6px}
+.sidebar-footer{padding:12px;border-top:1px solid rgba(255,255,255,.08)}
+.sidebar-user{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-md);background:rgba(255,255,255,.04)}
+.sidebar-user-avatar{width:36px;height:36px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff}
+.sidebar-user-info{flex:1;min-width:0}.sidebar-user-info .name{font-weight:600;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sidebar-user-info .role{font-size:11px;color:#64748b;text-transform:uppercase}
+.main-area{flex:1;margin-left:var(--sidebar-width);display:flex;flex-direction:column;min-height:100vh}
+.top-header{height:var(--header-height);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:100}
+.header-left{display:flex;align-items:center;gap:12px}.header-title{font-size:18px;font-weight:700}
+.menu-toggle{display:none;background:transparent;color:var(--text);width:40px;height:40px;padding:0;border-radius:var(--radius-md)}
+.header-actions{display:flex;align-items:center;gap:8px}
+.content{flex:1;padding:24px;max-width:1440px;width:100%;margin:0 auto}
+.page-section{display:none}.page-section.active{display:block}
+.dash-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-bottom:20px}
+.dash-card{background:var(--surface);padding:16px 18px;border-radius:var(--radius-lg);border:1px solid var(--border)}
+.dash-card .dash-label{font-size:11px;text-transform:uppercase;color:var(--text-muted);font-weight:600;margin-bottom:6px}
+.dash-card .dash-value{font-size:22px;font-weight:800}
+.dash-card.success{border-left:3px solid var(--success)}.dash-card.warning{border-left:3px solid var(--warning)}
+.dash-card.danger{border-left:3px solid var(--danger)}.dash-card.info{border-left:3px solid var(--primary)}
+.charts-row{display:grid;grid-template-columns:1.6fr 1fr;gap:16px}
+.chart-card{background:var(--surface);padding:20px;border-radius:var(--radius-lg);border:1px solid var(--border)}
+.chart-card h3{font-size:12px;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;font-weight:700}
+.chart-card canvas{max-height:260px}
+.filters{background:var(--surface);padding:16px 18px;border-radius:var(--radius-lg);border:1px solid var(--border);margin-bottom:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+#manualForm{background:var(--surface);padding:24px;border-radius:var(--radius-lg);border:1px solid var(--border);margin-bottom:20px;display:none;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.table-container{background:var(--surface);border-radius:var(--radius-lg);border:1px solid var(--border);overflow:auto}
+table{width:100%;border-collapse:collapse}thead{background:var(--surface-2);position:sticky;top:0}
+th{padding:12px 16px;text-align:left;font-weight:600;font-size:11px;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border)}
+td{padding:13px 16px;border-bottom:1px solid var(--border);font-size:13px;color:var(--text-secondary)}
+tbody tr{cursor:pointer}tbody tr:hover{background:var(--primary-light)}
+.status{padding:4px 10px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;display:inline-block}
+.status-quick-actions{display:flex;flex-wrap:wrap;gap:8px}
+.status-quick-btn{padding:9px 14px;border-radius:var(--radius-md);font-size:12px;font-weight:700;text-transform:uppercase;border:2px solid transparent;opacity:.5;font-family:inherit}
+.status-quick-btn:hover{opacity:.8;transform:none}.status-quick-btn.active{opacity:1;border-color:rgba(0,0,0,.2)}
+.schedule-contact{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:end}
+.kanban-wrapper{display:none;flex-direction:column;gap:10px;padding-bottom:8px}
+.kanban-status-nav{
+  display:none;gap:8px;overflow-x:auto;padding:4px 2px 8px;
+  -webkit-overflow-scrolling:touch;scrollbar-width:thin;
+  scroll-snap-type:x proximity;
+}
+.kanban-status-chip{
+  flex:0 0 auto;scroll-snap-align:start;
+  border:1.5px solid var(--border);background:var(--surface);
+  color:var(--text-secondary);border-radius:999px;
+  padding:8px 12px;font-size:12px;font-weight:700;
+  font-family:inherit;cursor:pointer;white-space:nowrap;
+  min-height:40px;display:inline-flex;align-items:center;gap:6px;
+}
+.kanban-status-chip .chip-count{
+  background:var(--surface-2);border-radius:999px;padding:2px 7px;font-size:11px;color:var(--text);
+}
+.kanban-status-chip.active{
+  border-color:var(--primary);background:var(--primary);color:#fff;
+}
+.kanban-status-chip.active .chip-count{background:rgba(255,255,255,.2);color:#fff}
+.kanban-board{
+  display:flex;gap:14px;min-width:max-content;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+  padding-bottom:8px;scroll-snap-type:x mandatory;
+  scroll-padding:12px;
+}
+.kanban-column{
+  background:var(--surface);border-radius:var(--radius-lg);border:1px solid var(--border);
+  width:280px;min-width:280px;display:flex;flex-direction:column;max-height:72vh;
+  scroll-snap-align:start;flex-shrink:0;
+}
+.kanban-column-header{padding:12px 14px;font-size:11px;font-weight:700;text-transform:uppercase;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:8px}
+.kanban-cards{padding:10px;overflow-y:auto;flex:1;min-height:80px}.kanban-cards.drag-over{background:rgba(37,99,235,.08);outline:2px dashed var(--primary)}
+.kanban-card{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-md);padding:12px;margin-bottom:8px;cursor:grab;font-size:12px;touch-action:manipulation}
+.kanban-card:active{cursor:grabbing}
+.kanban-card strong{display:block;font-size:13px;margin-bottom:4px;color:var(--text)}
+.kanban-card .kanban-meta{color:var(--text-muted);font-size:11px;line-height:1.35}
+.kanban-card .kanban-actions{display:none;margin-top:8px;gap:6px}
+.kanban-card .kanban-actions select{
+  font-size:12px!important;padding:8px 10px!important;min-height:40px;border-radius:8px;
+}
+#modal,#adminModal{
+  display:none;position:fixed;inset:0;z-index:1000;
+  align-items:center;justify-content:center;padding:20px;
+  background:rgba(15,23,42,0);
+  opacity:0;
+  transition:background .25s ease, opacity .25s ease;
+}
+#modal.open,#adminModal.open{
+  display:flex;
+  background:rgba(15,23,42,.55);
+  opacity:1;
+}
+#modal.closing,#adminModal.closing{
+  display:flex;
+  background:rgba(15,23,42,0);
+  opacity:0;
+}
+.modal-content{
+  background:var(--surface);border-radius:var(--radius-xl);width:100%;max-width:780px;
+  max-height:92vh;overflow-y:auto;border:1px solid var(--border);
+  transform:translateY(16px) scale(.96);
+  opacity:0;
+  transition:transform .28s cubic-bezier(.22,1,.36,1), opacity .28s ease;
+}
+#modal.open .modal-content,#adminModal.open .modal-content{
+  transform:translateY(0) scale(1);
+  opacity:1;
+}
+#modal.closing .modal-content,#adminModal.closing .modal-content{
+  transform:translateY(12px) scale(.97);
+  opacity:0;
+}
+.modal-content.modal-wide{max-width:960px}
+@keyframes modalPop {
+  from { transform:translateY(20px) scale(.94); opacity:0; }
+  to { transform:translateY(0) scale(1); opacity:1; }
+}
+.modal-header{background:#0f172a;color:#fff;padding:18px 24px;border-radius:var(--radius-xl) var(--radius-xl) 0 0;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1}
+.modal-header h2{font-size:18px;font-weight:700}
+.modal-close{background:rgba(255,255,255,.1);color:#fff;font-size:20px;width:32px;height:32px;padding:0;border-radius:50%}
+.modal-body{padding:24px}.modal-section{margin-bottom:24px}
+.modal-section h3{font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:12px}
+.modal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+#m-timeline{background:var(--surface-2);padding:14px;border-radius:var(--radius-md);max-height:280px;overflow-y:auto;border:1px solid var(--border)}
+#m-timeline>div{padding:10px 0;border-bottom:1px solid var(--border);font-size:12px}
+.timeline-tag{display:inline-block;font-size:9px;font-weight:700;text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-right:6px}
+.timeline-tag.status{background:#dcfce7;color:#14532d}
+.task-item,.obs-item{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-md);padding:10px 12px;margin-bottom:8px;font-size:12px;display:flex;justify-content:space-between;gap:10px}
+.task-item.concluida{opacity:.55;text-decoration:line-through}
+.priority-badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase}
+.priority-alta{background:#fee2e2;color:#991b1b}.priority-media{background:#fef3c7;color:#92400e}.priority-baixa{background:#dbeafe;color:#1e40af}
+.admin-list-item{display:flex;justify-content:space-between;align-items:center;background:var(--surface-2);border:1px solid var(--border);padding:12px 14px;border-radius:var(--radius-md);margin-bottom:8px;font-size:13px;gap:10px}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:150}.sidebar-overlay.visible{display:block}
+
+/* ===== TABLET ===== */
+@media (max-width: 1024px) {
+  .charts-row { grid-template-columns: 1fr; }
+  .content { padding: 18px; }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  :root {
+    --sidebar-width: min(86vw, 300px);
+    --header-height: 56px;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+    width: var(--sidebar-width);
+    box-shadow: 8px 0 32px rgba(0,0,0,.35);
+  }
+  .sidebar.open { transform: translateX(0); }
+
+  .main-area { margin-left: 0; min-width: 0; }
+  .menu-toggle { display: inline-flex !important; align-items: center; justify-content: center; }
+
+  .top-header {
+    padding: 0 12px;
+    height: var(--header-height);
+    gap: 8px;
+  }
+  .header-title { font-size: 16px; }
+  .header-actions { gap: 4px; }
+  .header-actions .btn-ghost span:not(.material-icons),
+  .header-actions .btn-danger span:not(.material-icons),
+  .header-actions .btn-small span:not(.material-icons) {
+    display: none; /* só ícones no mobile */
+  }
+  .header-actions button {
+    min-width: 40px;
+    min-height: 40px;
+    padding: 8px;
+  }
+
+  .content {
+    padding: 12px;
+    padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .dash-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .dash-card { padding: 12px 14px; }
+  .dash-card .dash-value { font-size: 18px; }
+  .dash-card .dash-label { font-size: 10px; }
+
+  .charts-row { grid-template-columns: 1fr; gap: 12px; }
+  .chart-card { padding: 14px; }
+  .chart-card canvas { max-height: 220px; }
+
+  .filters {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .toolbar {
+    gap: 8px;
+  }
+  .toolbar button {
+    flex: 1 1 auto;
+    min-height: 42px;
+  }
+
+  #manualForm {
+    grid-template-columns: 1fr !important;
+    padding: 14px;
+    gap: 12px;
+  }
+
+  /* Tabela rolável horizontal */
+  .table-container {
+    margin: 0 -4px;
+    border-radius: var(--radius-md);
+    -webkit-overflow-scrolling: touch;
+  }
+  table { min-width: 640px; }
+  th, td { padding: 10px 12px; font-size: 12px; }
+
+  .kanban-wrapper {
+    margin: 0 -12px;
+    padding: 0 12px 12px;
+    gap: 12px;
+  }
+  .kanban-status-nav {
+    display: flex !important;
+    margin: 0 -4px;
+    padding: 2px 4px 10px;
+  }
+  .kanban-board {
+    gap: 12px;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 4px;
+    /* esconde scrollbar feia em alguns browsers */
+  }
+  .kanban-column {
+    width: min(88vw, 320px);
+    min-width: min(88vw, 320px);
+    max-height: calc(100dvh - 220px);
+    max-height: calc(100vh - 220px);
+  }
+  .kanban-column-header {
+    padding: 14px;
+    font-size: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  .kanban-cards {
+    padding: 10px;
+    min-height: 120px;
+  }
+  .kanban-card {
+    padding: 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    /* no mobile, arrastar HTML5 é ruim — usamos seletor de status */
+    cursor: pointer;
+  }
+  .kanban-card[draggable="true"] {
+    -webkit-user-drag: none;
+  }
+  .kanban-card .kanban-actions {
+    display: flex !important;
+  }
+  .kanban-card strong {
+    font-size: 14px;
+  }
+
+
+  /* Modal tela cheia no mobile */
+  #modal, #adminModal {
+    padding: 0;
+    align-items: stretch;
+  }
+  .modal-content,
+  .modal-content.modal-wide {
+    max-width: 100%;
+    width: 100%;
+    max-height: 100%;
+    height: 100%;
+    border-radius: 0;
+    border: none;
+    transform: translateY(24px);
+  }
+  #modal.open .modal-content,
+  #adminModal.open .modal-content {
+    transform: translateY(0);
+  }
+  #modal.closing .modal-content,
+  #adminModal.closing .modal-content {
+    transform: translateY(18px);
+  }
+  .modal-header {
+    border-radius: 0;
+    padding: 14px 16px;
+    position: sticky;
+    top: 0;
+  }
+  #imovelModal {
+  display:none; position:fixed; inset:0; z-index:1000;
+  align-items:center; justify-content:center; padding:20px;
+  background:rgba(15,23,42,0); opacity:0;
+  transition:background .25s ease, opacity .25s ease;
+}
+#imovelModal.open { display:flex; background:rgba(15,23,42,.55); opacity:1; }
+#imovelModal.closing { display:flex; background:rgba(15,23,42,0); opacity:0; }
+#imovelModal .modal-content {
+  transform:translateY(16px) scale(.96); opacity:0;
+  transition:transform .28s cubic-bezier(.22,1,.36,1), opacity .28s ease;
+}
+#imovelModal.open .modal-content { transform:translateY(0) scale(1); opacity:1; }
+  .modal-header h2 { font-size: 16px; line-height: 1.3; }
+  .modal-body { padding: 16px; }
+  .modal-grid { grid-template-columns: 1fr; gap: 12px; }
+  .schedule-contact { grid-template-columns: 1fr; }
+  .status-quick-actions { gap: 6px; }
+  .status-quick-btn { padding: 10px 12px; font-size: 11px; flex: 1 1 calc(50% - 6px); }
+
+  .login-screen { padding: 16px; }
+  .login-box { padding: 28px 20px; border-radius: var(--radius-lg); }
+
+  .nav-item { padding: 13px 14px; min-height: 44px; font-size: 14px; }
+
+  /* Botões do rodapé do modal empilhados */
+  .modal-body > div[style*="justify-content:flex-end"] {
+    flex-direction: column-reverse !important;
+  }
+  .modal-body > div[style*="justify-content:flex-end"] button {
+    width: 100%;
+    min-height: 44px;
+  }
+}
+
+/* ===== TELAS MUITO PEQUENAS ===== */
+@media (max-width: 400px) {
+  .dash-cards { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .dash-card .dash-value { font-size: 16px; }
+  .header-title { font-size: 15px; max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .toolbar button { font-size: 12px; padding: 10px 8px; }
+}
+
+/* Touch: evita zoom acidental em inputs no iOS */
+@media (max-width: 768px) {
+  input, select, textarea { font-size: 16px !important; }
+}
+
+
+
+body.dark-mode{--bg:#0a0f1a;--surface:#111827;--surface-2:#1a2332;--border:#334155;--text:#f1f5f9;--text-secondary:#cbd5e1;--text-muted:#94a3b8;--primary:#3b82f6;--input-bg:#0f172a;--input-border:#475569;--input-text:#f1f5f9}
+:root{--input-bg:#fff;--input-border:#94a3b8;--input-text:#0f172a}
+input,select,textarea{background:var(--input-bg)!important;color:var(--input-text)!important;border:1.5px solid var(--input-border)!important}
+label{color:var(--text-secondary);font-weight:600}
+
+
+html { -webkit-text-size-adjust: 100%; }
+button, .nav-item, .kanban-card, tbody tr { -webkit-tap-highlight-color: transparent; }
+.sidebar-overlay { backdrop-filter: blur(2px); }
+
+
+.sidebar-footer{position:relative}
+.sidebar-user{cursor:pointer;transition:background .15s;position:relative}
+.sidebar-user:hover{background:rgba(255,255,255,.1)}
+.user-menu-dropdown{
+  display:none;position:absolute;left:12px;right:12px;bottom:calc(100% + 6px);
+  background:#1e293b;border:1px solid rgba(255,255,255,.12);border-radius:10px;
+  padding:6px;z-index:50;box-shadow:0 10px 28px rgba(0,0,0,.4)
+}
+.user-menu-dropdown.open{display:block}
+.user-menu-dropdown button{
+  width:100%;text-align:left;background:transparent;border:0;color:#e2e8f0;
+  padding:11px 12px;border-radius:8px;font-size:13px;cursor:pointer;
+  display:flex;align-items:center;gap:10px;font-family:inherit;font-weight:500
+}
+.user-menu-dropdown button:hover{background:rgba(255,255,255,.08);transform:none}
+.sidebar-user .chevron{font-size:11px;color:#64748b;margin-left:4px}
+
+
+#confirmModal{
+  display:none;position:fixed;inset:0;z-index:2000;
+  align-items:center;justify-content:center;padding:20px;
+  background:rgba(15,23,42,0);opacity:0;
+  transition:background .22s ease, opacity .22s ease;
+}
+#confirmModal.open{
+  display:flex;background:rgba(15,23,42,.6);opacity:1;
+}
+#confirmModal.closing{
+  display:flex;background:rgba(15,23,42,0);opacity:0;
+}
+.confirm-box{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  max-width:420px;width:100%;padding:24px;box-shadow:var(--shadow-xl);
+  transform:translateY(14px) scale(.95);opacity:0;
+  transition:transform .26s cubic-bezier(.22,1,.36,1), opacity .26s ease;
+}
+#confirmModal.open .confirm-box{
+  transform:translateY(0) scale(1);opacity:1;
+}
+#confirmModal.closing .confirm-box{
+  transform:translateY(10px) scale(.97);opacity:0;
+}
+.confirm-box h3{font-size:18px;margin-bottom:10px;color:var(--text)}
+.confirm-box p{font-size:14px;color:var(--text-secondary);line-height:1.5;margin-bottom:20px;white-space:pre-line}
+.confirm-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.confirm-actions button{min-width:110px;min-height:42px}
+@media(max-width:480px){
+  .confirm-actions{flex-direction:column-reverse}
+  .confirm-actions button{width:100%}
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  #modal, #adminModal, #confirmModal,
+  .modal-content, .confirm-box {
+    transition: none !important;
+  }
+}
+
+</style>
+</head>
+
+<body>
+<div id="loginScreen" class="login-screen">
+<div class="login-box">
+<div class="login-logo"><img src="logo.png" class="login-logo-img" alt="Vinutto" onerror="this.style.display='none'"><p>Sistema de Gestão de Leads</p></div>
+<div class="login-form">
+<div class="field-group"><label>Usuário</label><input type="text" id="loginUser" placeholder="seu.usuario" autocomplete="username"></div>
+<div class="field-group"><label>Senha</label><input type="password" id="loginPass" placeholder="Digite sua senha" autocomplete="current-password"></div>
+<div class="login-remember"><input type="checkbox" id="loginRemember"><label for="loginRemember">Lembrar acesso</label></div>
+<button class="btn-primary" onclick="login()"><i class="fa-solid fa-right-to-bracket"></i> Entrar</button>
+<div class="login-links">
+  <a href="https://wa.me/5521982960926?text=Olá,%20esqueci%20minha%20senha%20e%20preciso%20de%20ajuda." 
+     target="_blank" 
+     class="btn-link" 
+     style="padding:0;font-size:12px;color:var(--text-muted)">
+     Esqueci minha senha
+  </a>
+</div>
+
+<div id="loginMessage" class="login-message"></div>
+</div></div></div>
+<div id="crmScreen" style="display:none">
+<div class="app-layout">
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+<aside class="sidebar" id="sidebar">
+<div class="sidebar-brand"><img src="logo.png" alt="Vinutto" onerror="this.style.display='none'"><span>CRM Vinutto</span></div>
+<nav class="sidebar-nav">
+<button class="nav-item active" data-page="dashboard" onclick="navigateTo('dashboard')"><i class="fa-solid fa-chart-pie"></i><span>Dashboard</span></button>
+<button class="nav-item" data-page="clientes" onclick="navigateTo('clientes')"><i class="fa-solid fa-users"></i><span>Meus Clientes</span></button>
+<button class="nav-item" data-page="imoveis" onclick="navigateTo('imoveis')"><i class="fas fa-building"></i> Imóveis</button>
+<div id="adminNavSection" style="display:none">
+<div class="nav-section-label">Administração</div>
+<button class="nav-item" onclick="openAdminUsers();closeSidebar()"><i class="fa-solid fa-user-gear"></i><span>Usuários</span></button>
+<button class="nav-item" onclick="openAdminEmpreendimentos();closeSidebar()"><i class="fa-solid fa-building"></i><span>Empreendimentos</span></button>
+<button class="nav-item" onclick="openAdminConstrutoras();closeSidebar()"><i class="fa-solid fa-city"></i><span>Construtoras</span></button>
+<button class="nav-item" onclick="openAdminOrigens();closeSidebar()"><i class="fa-solid fa-globe"></i><span>Origens</span></button>
+</div>
+<div class="nav-section-label">Links</div>
+<a href="https://robsonvinuto.com.br/fluxo.html" class="nav-item" target="_blank" rel="noopener"><i class="fa-solid fa-diagram-project"></i><span>Fluxo</span></a>
+<a href="https://robsonvinuto.com.br/lancamento/lancamento.html" class="nav-item" target="_blank" rel="noopener"><i class="fa-solid fa-rocket"></i><span>Lançamento</span></a>
+<a href="https://robsonvinuto.com.br/novo/index.html" class="nav-item" target="_blank" rel="noopener"><i class="fa-solid fa-house"></i><span>LINKs</span></a>
+</nav>
+<div class="sidebar-footer">
+<div class="user-menu-dropdown" id="userMenuDropdown">
+<button type="button" onclick="event.stopPropagation();closeUserMenu();changePassword()"><i class="fa-solid fa-key"></i> Alterar senha</button>
+<button type="button" onclick="event.stopPropagation();closeUserMenu();logout()"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>
+</div>
+<div class="sidebar-user" id="sidebarUserBtn" onclick="toggleUserMenu(event)" title="Opções da conta">
+<div class="sidebar-user-avatar" id="userAvatar">U</div>
+<div class="sidebar-user-info"><div class="name" id="userName"></div><div class="role" id="userRole"></div></div>
+<i class="fa-solid fa-chevron-up chevron"></i>
+</div>
+</div>
+</aside>
+<div class="main-area">
+<header class="top-header">
+<div class="header-left">
+<button class="menu-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-bars" style="font-size:18px"></i></button>
+<h1 class="header-title" id="pageTitle">Dashboard</h1>
+</div>
+<div class="header-actions">
+<button class="btn-ghost btn-icon-only" onclick="toggleTheme()" title="Tema"><span class="material-icons" id="themeIcon" style="font-size:20px">dark_mode</span></button>
+<button class="btn-danger btn-small" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i><span>Sair</span></button>
+</div>
+</header>
+<main class="content">
+<section id="page-dashboard" class="page-section active">
+<div class="dash-cards" id="dashCards"></div>
+<div class="charts-row">
+<div class="chart-card"><h3>Funil de Vendas</h3><canvas id="chartFunil"></canvas></div>
+<div class="chart-card"><h3>Leads por Origem</h3><canvas id="chartOrigem"></canvas></div>
+</div>
+</section>
+<section id="page-clientes" class="page-section">
+<div class="filters">
+<div class="field-group"><label>Pesquisar</label><input type="text" id="searchTerm" placeholder="Nome, email, telefone, CPF..." oninput="render()"></div>
+<div class="field-group"><label>Status</label><select id="filterStatus" onchange="render()"><option value="">Todos</option></select></div>
+<div class="field-group"><label>Corretor</label><select id="filterCorretor" onchange="onFilterCorretorChange()"><option value="">Todos</option></select></div>
+<div class="field-group"><label>Origem</label><select id="filterOrigem" onchange="render()"><option value="">Todas</option></select></div>
+<div class="field-group"><label>Empreendimento</label><select id="filterEmpreendimento" onchange="render()"><option value="">Todos</option></select></div>
+</div>
+<div class="toolbar">
+<button class="btn-primary" onclick="toggleForm()"><i class="fa-solid fa-plus"></i> Novo Lead</button>
+<button class="btn-view-toggle active" id="btnViewTable" onclick="setViewMode('table')"><i class="fa-solid fa-table"></i> Tabela</button>
+<button class="btn-view-toggle" id="btnViewKanban" onclick="setViewMode('kanban')"><i class="fa-solid fa-columns"></i> Funil</button>
+<button class="btn-export" onclick="exportToExcel()" id="btnExport" style="display:none"><i class="fa-solid fa-file-excel"></i> Exportar</button>
+</div>
+<div id="manualForm">
+<div class="field-group"><label>Nome *</label><input type="text" id="newName"></div>
+<div class="field-group"><label>CPF</label><input type="text" id="newCpf"></div>
+<div class="field-group"><label>Email</label><input type="email" id="newEmail"></div>
+<div class="field-group"><label>Telefone</label><input type="tel" id="newTel"></div>
+<div class="field-group"><label>WhatsApp</label><input type="text" id="newWhatsapp"></div>
+<div class="field-group"><label>Cidade</label><input type="text" id="newCidade"></div>
+<div class="field-group"><label>Estado</label><input type="text" id="newEstado" maxlength="2"></div>
+<div class="field-group"><label>Origem</label><select id="newOrigem"><option value="">Selecione</option></select></div>
+<div class="field-group"><label>Empreendimento</label><select id="newEmpreendimento" onchange="onEmpreendimentoChange('new')"><option value="">Nenhum</option></select></div>
+<div class="field-group"><label>Construtora</label><select id="newConstrutora"><option value="">Nenhuma</option></select></div>
+<div class="field-group"><label>Tipo</label><select id="newTipoImovel"><option value="">Selecione</option><option value="apartamento">Apartamento</option><option value="casa">Casa</option><option value="cobertura">Cobertura</option><option value="terreno">Terreno</option><option value="sala_comercial">Sala Comercial</option></select></div>
+<div class="field-group"><label>Quartos</label><input type="number" id="newQuartos" min="0" max="10"></div>
+<div class="field-group"><label>Valor mín.</label><input type="number" id="newValorMin"></div>
+<div class="field-group"><label>Valor máx.</label><input type="number" id="newValorMax"></div>
+<div class="field-group"><label>Link Imóvel</label><input type="url" id="newImovelLink"></div>
+<div class="field-group"><label>Descrição</label><input type="text" id="newImovel"></div>
+<div class="field-group"><label>Corretor</label><select id="newCorretor"></select></div>
+<div style="grid-column:1/-1;display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap">
+<button class="btn-secondary" onclick="toggleForm()">Cancelar</button>
+<button class="btn-success" onclick="addLeadManual()"><i class="fa-solid fa-check"></i> Salvar Lead</button>
+</div></div>
+<div class="table-container" id="viewTable"><table>
+<thead><tr><th>Nome</th><th>Email</th><th>Telefone</th><th>Imóvel</th><th>Origem</th><th>Status</th><th>Corretor</th><th>Última Atualização</th></tr></thead>
+<tbody id="leadsTableBody"></tbody></table></div>
+<div class="kanban-wrapper" id="viewKanban">
+  <div class="kanban-status-nav" id="kanbanStatusNav" aria-label="Estágios do funil"></div>
+  <div class="kanban-board" id="kanbanBoard"></div>
+</div>
+</section>
+<!-- ===================== PÁGINA IMÓVEIS ===================== -->
+<section id="page-imoveis" class="page-section">
+
+    <!-- Cards de estatísticas -->
+    <div class="dash-cards" id="imoveisDashCards" style="margin-bottom:20px;"></div>
+
+    <!-- Filtros -->
+    <div class="filters">
+        <div class="field-group">
+            <label>🔍 Pesquisar</label>
+            <input type="text" id="imovelSearch" placeholder="Código, título, bairro..." oninput="renderImoveis()">
+        </div>
+        <div class="field-group">
+            <label>Status</label>
+            <select id="imovelFilterStatus" onchange="renderImoveis()">
+                <option value="">Todos</option>
+                <option value="disponivel">Disponível</option>
+                <option value="reservado">Reservado</option>
+                <option value="vendido">Vendido</option>
+                <option value="alugado">Alugado</option>
+                <option value="inativo">Inativo</option>
+            </select>
+        </div>
+        <div class="field-group">
+            <label>Finalidade</label>
+            <select id="imovelFilterFinalidade" onchange="renderImoveis()">
+                <option value="">Todas</option>
+                <option value="venda">Venda</option>
+                <option value="locacao">Locação</option>
+                <option value="venda_locacao">Venda e Locação</option>
+            </select>
+        </div>
+        <div class="field-group">
+            <label>Tipo</label>
+            <select id="imovelFilterTipo" onchange="renderImoveis()">
+                <option value="">Todos</option>
+                <option value="Apartamento">Apartamento</option>
+                <option value="Casa">Casa</option>
+                <option value="Cobertura">Cobertura</option>
+                <option value="Terreno">Terreno</option>
+                <option value="Sala Comercial">Sala Comercial</option>
+                <option value="Galpão">Galpão</option>
+            </select>
+        </div>
+        <div class="field-group">
+            <label>Cidade</label>
+            <input type="text" id="imovelFilterCidade" placeholder="Cidade" oninput="renderImoveis()">
+        </div>
+        <div class="field-group">
+            <label>Categoria</label>
+            <select id="imovelFilterCategoria" onchange="renderImoveis()">
+                <option value="">Todas</option>
+                <option value="prontos">Pronto</option>
+                <option value="lancamentos">Lançamento</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+        <button class="btn-primary" onclick="toggleImovelForm()">
+            <span class="btn-icon">➕</span> Novo Imóvel
+        </button>
+        <button class="btn-view-toggle active" id="btnImovelViewTable" onclick="setImovelViewMode('table')">📋 Tabela</button>
+        <button class="btn-view-toggle" id="btnImovelViewCards" onclick="setImovelViewMode('cards')">🃏 Cards</button>
+    </div>
+
+    <!-- Formulário Novo / Editar Imóvel -->
+    <div id="imovelForm" style="display:none;" class="form-inline" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
+        <input type="hidden" id="imovelId">
+
+        <div class="field-group">
+            <label>Título *</label>
+            <input type="text" id="imovelTitulo" placeholder="Ex: Apartamento 3 quartos Centro">
+        </div>
+        <div class="field-group">
+            <label>Tipo</label>
+            <select id="imovelTipo">
+                <option value="Apartamento">Apartamento</option>
+                <option value="Casa">Casa</option>
+                <option value="Cobertura">Cobertura</option>
+                <option value="Terreno">Terreno</option>
+                <option value="Sala Comercial">Sala Comercial</option>
+                <option value="Galpão">Galpão</option>
+            </select>
+        </div>
+        <div class="field-group">
+            <label>Finalidade</label>
+            <select id="imovelFinalidade">
+                <option value="venda">Venda</option>
+                <option value="locacao">Locação</option>
+                <option value="venda_locacao">Venda e Locação</option>
+            </select>
+        </div>
+        <div class="field-group">
+            <label>Status</label>
+            <select id="imovelStatus">
+                <option value="disponivel">Disponível</option>
+                <option value="reservado">Reservado</option>
+                <option value="vendido">Vendido</option>
+                <option value="alugado">Alugado</option>
+            </select>
+        </div>
+        <div class="field-group">
+            <label>Categoria (Site)</label>
+            <select id="imovelCategoriaSite">
+                <option value="prontos">Pronto</option>
+                <option value="lancamentos">Lançamento</option>
+            </select>
+        </div>
+
+        <div class="field-group">
+            <label>Endereço</label>
+            <input type="text" id="imovelEndereco" placeholder="Rua / Avenida">
+        </div>
+        <div class="field-group">
+            <label>Número</label>
+            <input type="text" id="imovelNumero">
+        </div>
+        <div class="field-group">
+            <label>Bairro</label>
+            <input type="text" id="imovelBairro">
+        </div>
+        <div class="field-group">
+            <label>Cidade</label>
+            <input type="text" id="imovelCidade">
+        </div>
+        <div class="field-group">
+            <label>UF</label>
+            <input type="text" id="imovelEstado" maxlength="2" placeholder="SP">
+        </div>
+        <div class="field-group">
+            <label>CEP</label>
+            <input type="text" id="imovelCep" placeholder="00000-000">
+        </div>
+
+        <div class="field-group">
+            <label>Valor Venda (R$)</label>
+            <input type="number" id="imovelValorVenda" step="0.01">
+        </div>
+        <div class="field-group">
+            <label>Valor Locação (R$)</label>
+            <input type="number" id="imovelValorLocacao" step="0.01">
+        </div>
+        <div class="field-group">
+            <label>Condomínio (R$)</label>
+            <input type="number" id="imovelValorCondominio" step="0.01">
+        </div>
+        <div class="field-group">
+            <label>IPTU (R$)</label>
+            <input type="number" id="imovelValorIptu" step="0.01">
+        </div>
+
+        <div class="field-group">
+            <label>Área Total (m²)</label>
+            <input type="number" id="imovelAreaTotal" step="0.01">
+        </div>
+        <div class="field-group">
+            <label>Área Útil (m²)</label>
+            <input type="number" id="imovelAreaUtil" step="0.01">
+        </div>
+        <div class="field-group">
+            <label>Quartos</label>
+            <input type="number" id="imovelQuartos" min="0">
+        </div>
+        <div class="field-group">
+            <label>Suítes</label>
+            <input type="number" id="imovelSuites" min="0">
+        </div>
+        <div class="field-group">
+            <label>Banheiros</label>
+            <input type="number" id="imovelBanheiros" min="0">
+        </div>
+        <div class="field-group">
+            <label>Vagas</label>
+            <input type="number" id="imovelVagas" min="0">
+        </div>
+
+        <div class="field-group" style="grid-column: 1 / -1;">
+            <label>Descrição</label>
+            <textarea id="imovelDescricao" rows="3" placeholder="Descrição completa do imóvel..."></textarea>
+        </div>
+
+        <div class="field-group">
+            <label>URL Tour Virtual</label>
+            <input type="url" id="imovelTourUrl">
+        </div>
+        <div class="field-group">
+            <label>URL Vídeo</label>
+            <input type="url" id="imovelVideoUrl">
+        </div>
+        <div class="field-group">
+            <label>URL Foto Capa</label>
+            <input type="url" id="imovelCapaUrl" placeholder="https://...">
+        </div>
+        <div class="field-group">
+            <label>Corretor</label>
+            <select id="imovelCorretor"></select>
+        </div>
+        <div class="field-group">
+            <label>Construtora</label>
+            <select id="imovelConstrutora"><option value="">Nenhuma</option></select>
+        </div>
+        <div class="field-group">
+            <label>Empreendimento</label>
+            <select id="imovelEmpreendimento"><option value="">Nenhum</option></select>
+        </div>
+
+        <div class="field-group" style="grid-column: 1 / -1; display:flex; gap:10px; margin-top:10px;">
+            <button class="btn-success" onclick="salvarImovel()">💾 Salvar Imóvel</button>
+            <button class="btn-secondary" onclick="toggleImovelForm()">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- Tabela de Imóveis -->
+    <div class="table-container" id="imoveisTableWrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Título</th>
+                    <th>Tipo</th>
+                    <th>Finalidade</th>
+                    <th>Cidade</th>
+                    <th>Valor</th>
+                    <th>Status</th>
+                    <th>Corretor</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="imoveisTbody"></tbody>
+        </table>
+    </div>
+
+    <!-- Cards de Imóveis (alternativa) -->
+    <div id="imoveisCardsWrapper" style="display:none;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:15px;"></div>
+</section>
+
+<!-- ===================== MODAL DETALHE DO IMÓVEL ===================== -->
+<div id="imovelModal">
+    <div class="modal-content modal-wide">
+        <div class="modal-header">
+            <h2 id="im-titulo">Detalhe do Imóvel</h2>
+            <button class="modal-close" onclick="closeImovelModal()">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-grid" id="im-info"></div>
+            <div class="modal-section" style="margin-top:20px">
+                <h3>Leads Interessados</h3>
+                <div id="im-leads"></div>
+            </div>
+            <div class="modal-section">
+                <h3>Ações</h3>
+                <div style="display:flex;flex-wrap:wrap;gap:8px">
+                    <button class="btn-primary btn-small" onclick="editarImovelAtual()">✏️ Editar</button>
+                    <button class="btn-success btn-small" onclick="mudarStatusImovel('disponivel')">Disponível</button>
+                    <button class="btn-admin btn-small" onclick="mudarStatusImovel('reservado')">Reservado</button>
+                    <button class="btn-success btn-small" onclick="mudarStatusImovel('vendido')">Vendido</button>
+                    <button class="btn-secondary btn-small" onclick="mudarStatusImovel('alugado')">Alugado</button>
+                    <button class="btn-danger btn-small" id="btnDeleteImovel" style="display:none" onclick="excluirImovelAtual()">🗑️ Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <div class="modal-section">
+                <h3>Ações Rápidas</h3>
+                <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                    <button class="btn-primary btn-small" onclick="editarImovelAtual()">✏️ Editar</button>
+                    <button class="btn-success btn-small" onclick="mudarStatusImovel('disponivel')">Disponível</button>
+                    <button class="btn-admin btn-small" onclick="mudarStatusImovel('reservado')">Reservado</button>
+                    <button class="btn-success btn-small" onclick="mudarStatusImovel('vendido')">Vendido</button>
+                    <button class="btn-secondary btn-small" onclick="mudarStatusImovel('alugado')">Alugado</button>
+                    <button class="btn-danger btn-small" id="btnDeleteImovel" style="display:none;" onclick="excluirImovelAtual()">🗑️ Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</main></div></div></div>
+<div id="modal"><div class="modal-content modal-wide">
+<div class="modal-header"><h2 id="m-nome"></h2><button class="modal-close" onclick="closeModal()">×</button></div>
+<div class="modal-body">
+<div class="modal-section"><h3>Informações do Lead</h3><div class="modal-grid">
+<div class="field-group"><label>Telefone</label><input type="tel" id="m-tel"></div>
+<div class="field-group"><label>WhatsApp</label><div style="display:flex;gap:6px"><input type="text" id="m-whatsapp"><button class="btn-whatsapp btn-small" onclick="abrirWhatsapp()"><i class="fa-brands fa-whatsapp"></i></button></div></div>
+<div class="field-group"><label>Email</label><input type="email" id="m-email"></div>
+<div class="field-group"><label>CPF</label><input type="text" id="m-cpf"></div>
+<div class="field-group"><label>Cidade</label><input type="text" id="m-cidade"></div>
+<div class="field-group"><label>Estado</label><input type="text" id="m-estado" maxlength="2"></div>
+<div class="field-group"><label>Imóvel</label><input type="text" id="m-imovel"></div>
+<div class="field-group"><label>Link</label><input type="url" id="m-imovelLink"></div>
+<div class="field-group"><label>Origem</label><select id="m-origem"><option value="">Selecione</option></select></div>
+<div class="field-group"><label>Empreendimento</label><select id="m-empreendimento" onchange="onEmpreendimentoChange('m')"><option value="">Nenhum</option></select></div>
+<div class="field-group"><label>Construtora</label><select id="m-construtora"><option value="">Nenhuma</option></select></div>
+<div class="field-group"><label>Tipo</label><select id="m-tipoImovel"><option value="">Selecione</option><option value="apartamento">Apartamento</option><option value="casa">Casa</option><option value="cobertura">Cobertura</option><option value="terreno">Terreno</option><option value="sala_comercial">Sala Comercial</option></select></div>
+<div class="field-group"><label>Quartos</label><input type="number" id="m-quartos"></div>
+<div class="field-group"><label>Valor mín.</label><input type="number" id="m-valorMin"></div>
+<div class="field-group"><label>Valor máx.</label><input type="number" id="m-valorMax"></div>
+<div class="field-group"><label>Valor Fechado</label><input type="number" id="m-valorFechado"></div>
+<div class="field-group"><label>Comissão %</label><input type="number" step="0.1" id="m-comissaoPercentual"></div>
+<div class="field-group"><div class="checkbox-group"><input type="checkbox" id="m-comissaoRecebida"><label for="m-comissaoRecebida">Comissão recebida</label></div></div>
+</div></div>
+<div class="modal-section"><h3>Situação</h3><div class="status-quick-actions" id="statusQuickActions"></div>
+<div class="field-group" style="margin-top:12px"><label>Observação</label><textarea id="m-note" rows="2"></textarea></div></div>
+<div class="modal-section"><h3>Agendar Contato</h3><div class="schedule-contact">
+<div class="field-group"><label>Data</label><input type="datetime-local" id="m-scheduleData"></div>
+<div class="field-group"><label>Nota</label><input type="text" id="m-scheduleNota"></div>
+<button class="btn-secondary" onclick="agendarProximoContato()">Agendar</button></div></div>
+<div class="modal-section"><h3>Observações</h3><div id="m-observacoes"></div>
+<div class="field-group" style="margin-top:10px"><textarea id="m-newObservacao" rows="2"></textarea>
+<button class="btn-secondary btn-small" style="margin-top:8px" onclick="addObservacao()">Adicionar</button></div></div>
+<div class="modal-section"><h3>Tarefas</h3><div id="m-tarefas"></div>
+<div class="modal-grid" style="margin-top:10px">
+<input type="text" id="m-newTarefaTitulo" placeholder="Título">
+<input type="datetime-local" id="m-newTarefaPrazo">
+<select id="m-newTarefaPrioridade"><option value="baixa">Baixa</option><option value="media" selected>Média</option><option value="alta">Alta</option></select>
+<button class="btn-secondary btn-small" onclick="addTarefa()">Criar</button></div></div>
+<div class="modal-section"><h3>Timeline</h3><div id="m-timeline"></div></div>
+<div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap">
+
+<div class="modal-section" id="redirectLeadSection" style="display:none">
+  <h3>Direcionar para outro corretor</h3>
+  <p style="font-size:12px;color:var(--text-muted);margin-bottom:8px">Transfere este cliente para outro corretor.</p>
+  <div class="modal-grid">
+    <select id="m-redirectCorretor"><option value="">Selecione o corretor de destino</option></select>
+    <button class="btn-primary btn-small" type="button" onclick="redirectLeadToCorretor()">Direcionar cliente</button>
+  </div>
+</div>
+<button class="btn-danger" onclick="deleteLead()" id="btnDeleteLead" style="display:none">Excluir</button>
+<button class="btn-secondary" onclick="closeModal()">Fechar</button>
+<button class="btn-success" onclick="saveUpdate()">Salvar</button></div>
+</div></div></div>
+<div id="adminModal"><div class="modal-content">
+<div class="modal-header"><h2 id="am-title"></h2><button class="modal-close" onclick="closeAdminModal()">×</button></div>
+<div class="modal-body" id="am-body"></div>
+</div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+// ============================
+// VINUTTO CRM - JAVASCRIPT
+// ============================
+
+
+const ROLE_PERMISSIONS = {
+  Root: ['view_all_leads','filter_by_corretor','export_leads','delete_lead','manage_users','manage_catalog','delete_user','delete_admin','reassign_leads','reassign_lead','admin_panel'],
+  Admin: ['view_all_leads','filter_by_corretor','export_leads','delete_lead','manage_users','manage_catalog','delete_user','reassign_leads','reassign_lead','admin_panel'],
+  Coordenador: ['view_team_leads','view_own_leads','reassign_lead'],
+  Corretor: ['view_own_leads','reassign_lead'],
+  Corretora: ['view_own_leads','reassign_lead']
+};
+function can(p, user) {
+  const r = (user||currentUser||{}).role||'';
+  return (ROLE_PERMISSIONS[r]||[]).includes(p);
+}
+function isAdminUser(u){ return can('admin_panel', u); }
+function isStaffUser(u){ const r=(u||currentUser||{}).role; return r==='Admin'||r==='Root'||r==='Coordenador'; }
+
+function populateRedirectCorretores(){
+  const sel=document.getElementById('m-redirectCorretor');
+  if(!sel) return;
+  sel.innerHTML='<option value="">Selecione o corretor de destino</option>';
+  (corretores||[]).forEach(c=>{
+    if(String(c.id)===String(currentUser.id)) return;
+    sel.innerHTML+=`<option value="${c.id}">${c.name}</option>`;
+  });
+}
+async function redirectLeadToCorretor(){
+  if(!activeLead) return;
+  if(!can('reassign_lead')){ showNotification('Sem permissão para direcionar.'); return; }
+  const toUserId=document.getElementById('m-redirectCorretor')?.value;
+  if(!toUserId){ alert('Selecione o corretor de destino.'); return; }
+  if(!can('view_all_leads')){
+    const owner=String(activeLead.corretor||activeLead.corretor_id||'');
+    if(owner && owner!==String(currentUser.id) && !can('view_team_leads')){
+      showNotification('Só pode direcionar seus próprios clientes.'); return;
+    }
+  }
+  if(!confirm('Direcionar este cliente para o corretor selecionado?')) return;
+  const result=await api('reassignLeads',{ leadIds:[activeLead.id], toUserId, fromUserId: activeLead.corretor||activeLead.corretor_id||currentUser.id });
+  if(result.success){
+    showNotification(result.message||'Cliente direcionado!');
+    closeModal();
+    await carregarLeads();
+    if(typeof carregarStats==='function') await carregarStats();
+  } else showNotification(result.error||'Erro ao direcionar');
+}
+
+const API_URL = 'api.php';
+
+const STATUS_LIST = [
+    { key: 'atendimento', label: 'Em Atendimento' },
+    { key: 'visita', label: 'Marcou Visita' },
+    { key: 'negociacao', label: 'Em Negociação' },
+    { key: 'venda', label: 'Venda' },
+    { key: 'perdido', label: 'Perdido' }
+];
+
+// Status antigos do funil expandido (usado numa versão anterior) continuam
+// válidos em leads que não foram tocados; ao serem editados migram
+// naturalmente para o status simplificado mais próximo.
+const LEGACY_STATUS_MAP = {
+    novo_lead: 'atendimento',
+    primeiro_contato: 'atendimento',
+    em_atendimento: 'atendimento',
+    documentacao_recebida: 'atendimento',
+    visita_agendada: 'visita',
+    visita_realizada: 'visita',
+    proposta_enviada: 'negociacao',
+    em_negociacao: 'negociacao',
+    aguardando_aprovacao: 'negociacao',
+    contrato_enviado: 'negociacao',
+    negocio_fechado: 'venda',
+    negocio_perdido: 'perdido',
+    arquivado: 'perdido',
+    interessado: 'visita',
+    fechado: 'venda'
+};
+
+const STATUS_COLORS = {
+    atendimento: ['#dbeafe', '#1e40af'],
+    visita: ['#fce7f3', '#9d174d'],
+    negociacao: ['#fef3c7', '#92400e'],
+    venda: ['#dcfce7', '#14532d'],
+    perdido: ['#fee2e2', '#991b1b']
+};
+
+function statusLabel(key) {
+    const found = STATUS_LIST.find(s => s.key === key);
+    if (found) return found.label;
+    const legacy = STATUS_LIST.find(s => s.key === LEGACY_STATUS_MAP[key]);
+    if (legacy) return legacy.label;
+    return key ? key.charAt(0).toUpperCase() + key.slice(1) : '';
+}
+
+function statusColor(key) {
+    return STATUS_COLORS[key] || STATUS_COLORS[LEGACY_STATUS_MAP[key]] || ['#f1f5f9', '#475569'];
+}
+
+function displayStatusKey(key) {
+    // Para agrupar visualmente leads antigos nas colunas do funil simplificado
+    return STATUS_LIST.some(s => s.key === key) ? key : (LEGACY_STATUS_MAP[key] || 'atendimento');
+}
+
+// ============================
+// ESTADO GLOBAL
+// ============================
+let currentUser = null;
+let authToken = null;
+let leads = [];
+let corretores = [];
+let origens = [];
+let empreendimentos = [];
+let construtoras = [];
+let activeLead = null;
+let viewMode = 'table';
+let itiManual, itiModal;
+let chartFunil, chartOrigem;
+
+// ============================
+// SAFE STORAGE (evita SecurityError em sandbox / iframe)
+// ============================
+const _memStore = {};
+const safeStorage = {
+    getItem(key) {
+        try {
+            return window.localStorage.getItem(key);
+        } catch (e) {
+            return _memStore[key] !== undefined ? _memStore[key] : null;
+        }
+    },
+    setItem(key, value) {
+        try {
+            window.localStorage.setItem(key, value);
+        } catch (e) {
+            _memStore[key] = String(value);
+        }
+    },
+    removeItem(key) {
+        try {
+            window.localStorage.removeItem(key);
+        } catch (e) {
+            delete _memStore[key];
+        }
+    }
+};
+
+function getSession() {
+    try {
+        return JSON.parse(safeStorage.getItem('vinutto_session') || 'null');
+    } catch (e) {
+        return null;
+    }
+}
+
+function saveSession(sessionData) {
+    authToken = sessionData.token || null;
+    currentUser = sessionData.user || null;
+    safeStorage.setItem('vinutto_session', JSON.stringify(sessionData));
+}
+
+function clearSession() {
+    authToken = null;
+    currentUser = null;
+    safeStorage.removeItem('vinutto_session');
+}
+
+function forceLoginScreen(message) {
+    clearSession();
+    document.getElementById('crmScreen').style.display = 'none';
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('loginPass').value = '';
+    if (message) {
+        const msg = document.getElementById('loginMessage');
+        if (msg) msg.innerText = message;
+    }
+}
+
+// ============================
+// API HELPER (com Bearer token)
+// ============================
+async function api(action, payload = {}, method = 'POST') {
+    let url = `${API_URL}?action=${encodeURIComponent(action)}`;
+    const headers = { 'Content-Type': 'application/json' };
+
+    // Token da sessão atual (exceto no login)
+    if (authToken && action !== 'login') {
+        headers['Authorization'] = 'Bearer ' + authToken;
+    }
+
+    const opts = { method, headers };
+
+    if (method === 'GET') {
+        const qs = new URLSearchParams(
+            Object.fromEntries(Object.entries(payload).filter(([, v]) => v !== undefined && v !== null))
+        );
+        if ([...qs].length) url += '&' + qs.toString();
+    } else {
+        // Também envia token no body como fallback (alguns hosts removem o header Authorization)
+        const body = { ...payload };
+        if (authToken && action !== 'login') body.token = authToken;
+        opts.body = JSON.stringify(body);
+    }
+
+    const res = await fetch(url, opts);
+    const result = await res.json().catch(() => ({ success: false, error: 'Resposta inválida do servidor' }));
+
+    // Sessão expirada / inválida → volta ao login
+    if (res.status === 401 && action !== 'login' && action !== 'logout') {
+        forceLoginScreen(result.error || 'Sessão expirada. Faça login novamente.');
+        return result;
+    }
+
+    return result;
+}
+
+// ============================
+// INIT
+// ============================
+window.onload = async function () {
+    const savedUser = safeStorage.getItem('vinutto_remember_user');
+    if (savedUser) {
+        document.getElementById('loginUser').value = savedUser;
+        document.getElementById('loginRemember').checked = true;
+    }
+
+    if (safeStorage.getItem('vinutto_theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('themeIcon').innerText = 'light_mode';
+    }
+
+    const itiConfig = {
+        initialCountry: 'br',
+        preferredCountries: ['br', 'us'],
+        utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
+    };
+    itiManual = window.intlTelInput(document.getElementById('newTel'), itiConfig);
+    itiModal = window.intlTelInput(document.getElementById('m-tel'), itiConfig);
+
+    const savedSession = getSession();
+    if (savedSession && savedSession.token && savedSession.user) {
+        authToken = savedSession.token;
+        currentUser = savedSession.user;
+        // Valida token no servidor antes de entrar
+        try {
+            const me = await api('me', {}, 'GET');
+            if (me.success && me.user) {
+                currentUser = me.user;
+                saveSession({ token: authToken, user: me.user });
+                enterApp();
+                return;
+            }
+        } catch (e) { /* cai no login */ }
+        clearSession();
+    }
+};
+
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    safeStorage.setItem('vinutto_theme', isDark ? 'dark' : 'light');
+    document.getElementById('themeIcon').innerText = isDark ? 'light_mode' : 'dark_mode';
+    renderCharts();
+}
+
+// ============================
+// LOGIN / LOGOUT
+// ============================
+async function login() {
+    const username = document.getElementById('loginUser').value.trim();
+    const password = document.getElementById('loginPass').value;
+    const msg = document.getElementById('loginMessage');
+    msg.innerText = '';
+
+    if (!username || !password) {
+        msg.innerText = 'Preencha usuário e senha.';
+        return;
+    }
+
+    try {
+        const result = await api('login', { username, password });
+        if (!result.success || !result.token) {
+            msg.innerText = result.error || 'Falha no login';
+            return;
+        }
+
+        saveSession(result);
+
+        if (document.getElementById('loginRemember').checked) {
+            safeStorage.setItem('vinutto_remember_user', username);
+        } else {
+            safeStorage.removeItem('vinutto_remember_user');
+        }
+
+        enterApp();
+    } catch (e) {
+        msg.innerText = 'Erro de conexão com o servidor.';
+    }
+}
+
+async function logout() {
+    if (!confirm('Deseja realmente sair?')) return;
+    try {
+        await api('logout', {});
+    } catch (e) { /* ignore */ }
+    forceLoginScreen();
+}
+
+async function enterApp() {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('crmScreen').style.display = 'block';
+    document.getElementById('userName').innerText = currentUser.name;
+    document.getElementById('userRole').innerText = currentUser.role;
+
+    if (can('export_leads')) {
+        document.getElementById('btnExport').style.display = 'inline-flex';
+    }
+
+    if (can('admin_panel')) {
+        const n=document.getElementById('adminNavSection'); if(n) n.style.display='block';
+    }
+
+    populateStatusFilter();
+    await Promise.all([carregarCorretores(), carregarOrigens(), carregarEmpreendimentos(), carregarConstrutoras()]);
+    await carregarLeads();
+    await carregarStats();
+}
+
+// ============================
+// CARREGAMENTOS
+// ============================
+function populateStatusFilter() {
+    const sel = document.getElementById('filterStatus');
+    STATUS_LIST.forEach(s => {
+        sel.innerHTML += `<option value="${s.key}">${s.label}</option>`;
+    });
+}
+
+function renderStatusButtons(currentStatus) {
+    const box = document.getElementById('statusQuickActions');
+    box.innerHTML = STATUS_LIST.map(s => {
+        const [bg, color] = STATUS_COLORS[s.key];
+        const isActive = displayStatusKey(currentStatus) === s.key;
+        return `<button type="button" class="status-quick-btn ${isActive ? 'active' : ''}"
+                    style="background:${bg};color:${color}"
+                    onclick="quickSetStatus('${s.key}')">${s.label}</button>`;
+    }).join('');
+}
+
+async function quickSetStatus(key) {
+    if (!activeLead) return;
+    const note = document.getElementById('m-note').value.trim();
+    activeLead.status = key;
+    renderStatusButtons(key);
+    await persistLeadUpdate(activeLead, key, note || `Status alterado para ${statusLabel(key)}`);
+    document.getElementById('m-note').value = '';
+}
+
+async function carregarCorretores() {
+    const result = await api('listCorretores', {}, 'GET');
+    corretores = result.success ? result.corretores : [];
+
+    const filtro = document.getElementById('filterCorretor');
+    const novoSel = document.getElementById('newCorretor');
+    filtro.innerHTML = '<option value="">Todos</option>';
+    novoSel.innerHTML = '';
+
+    corretores.forEach(c => {
+        filtro.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+        novoSel.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+    });
+
+    if (currentUser.role !== 'Admin') {
+        novoSel.value = currentUser.id;
+    }
+}
+
+async function carregarOrigens() {
+    const result = await api('listOrigens', {}, 'GET');
+    origens = result.success ? result.origens : [];
+    ['filterOrigem', 'newOrigem', 'm-origem'].forEach(id => {
+        const sel = document.getElementById(id);
+        const keepFirst = sel.options[0];
+        sel.innerHTML = '';
+        sel.appendChild(keepFirst);
+        origens.forEach(o => sel.innerHTML += `<option value="${o.id}">${o.nome}</option>`);
+    });
+}
+
+async function carregarEmpreendimentos() {
+    const result = await api('listEmpreendimentos', {}, 'GET');
+    empreendimentos = result.success ? result.empreendimentos : [];
+    ['filterEmpreendimento', 'newEmpreendimento', 'm-empreendimento'].forEach(id => {
+        const sel = document.getElementById(id);
+        const keepFirst = sel.options[0];
+        sel.innerHTML = '';
+        sel.appendChild(keepFirst);
+        empreendimentos.forEach(e => sel.innerHTML += `<option value="${e.id}" data-construtora="${e.construtora_id || ''}">${e.nome}</option>`);
+    });
+}
+
+async function carregarConstrutoras() {
+    const result = await api('listConstrutoras', {}, 'GET');
+    construtoras = result.success ? result.construtoras : [];
+    ['newConstrutora', 'm-construtora'].forEach(id => {
+        const sel = document.getElementById(id);
+        const keepFirst = sel.options[0];
+        sel.innerHTML = '';
+        sel.appendChild(keepFirst);
+        construtoras.forEach(c => sel.innerHTML += `<option value="${c.id}">${c.nome}</option>`);
+    });
+}
+
+function onEmpreendimentoChange(prefix) {
+    const empSel = document.getElementById(prefix === 'new' ? 'newEmpreendimento' : 'm-empreendimento');
+    const construtoraSel = document.getElementById(prefix === 'new' ? 'newConstrutora' : 'm-construtora');
+    const opt = empSel.selectedOptions[0];
+    if (opt && opt.dataset.construtora) {
+        construtoraSel.value = opt.dataset.construtora;
+    }
+}
+
+function onFilterCorretorChange() {
+    if (can('view_all_leads')) { carregarLeads(); if (typeof carregarStats==='function') carregarStats(); }
+    else render();
+}
+async function carregarLeads() {
+    const params = { role: currentUser.role }; if(!can('view_all_leads')) params.corretor = currentUser.id; else { const fc=document.getElementById('filterCorretor'); if(fc&&fc.value) params.corretor=fc.value; }
+    const result = await api('listLeads', params, 'GET');
+    leads = result.success ? result.leads : [];
+    render();
+}
+
+async function carregarStats() {
+    const result = await api('stats', { corretor: currentUser.id, role: currentUser.role }, 'GET');
+    if (!result.success) return;
+    renderDashCards(result.stats);
+    renderCharts(result.stats);
+}
+
+// ============================
+// DASHBOARD
+// ============================
+function fmtMoney(v) {
+    return (v || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+function renderDashCards(stats) {
+    const cards = [
+        { label: 'Total de Leads', value: stats.total, cls: '' },
+        { label: 'Novos Hoje', value: stats.today, cls: '' },
+        { label: 'Este Mês', value: stats.month, cls: '' },
+        { label: 'Visitas Marcadas', value: stats.visitasMarcadas, cls: 'warning' },
+        { label: 'Em Negociação', value: stats.emNegociacao, cls: 'warning' },
+        { label: 'Negócios Fechados', value: stats.negociosFechados, cls: 'success' },
+        { label: 'Negócios Perdidos', value: stats.negociosPerdidos, cls: 'danger' },
+        { label: 'Valor em Negociação', value: fmtMoney(stats.valorEmNegociacao), cls: '' },
+        { label: 'Valor Fechado', value: fmtMoney(stats.valorFechado), cls: 'success' },
+        { label: 'Comissão Prevista', value: fmtMoney(stats.comissaoPrevista), cls: '' },
+        { label: 'Comissão Recebida', value: fmtMoney(stats.comissaoRecebida), cls: 'success' }
+    ];
+
+    document.getElementById('dashCards').innerHTML = cards.map(c => `
+        <div class="dash-card ${c.cls}">
+            <div class="dash-label">${c.label}</div>
+            <div class="dash-value">${c.value}</div>
+        </div>
+    `).join('');
+
+    window._lastStats = stats;
+}
+
+function renderCharts(stats) {
+    stats = stats || window._lastStats;
+    if (!stats) return;
+
+    const isDark = document.body.classList.contains('dark-mode');
+    Chart.defaults.color = isDark ? '#e2e8f0' : '#1e293b';
+
+    const funilCtx = document.getElementById('chartFunil');
+    const funilLabels = (stats.byStatus || []).map(s => statusLabel(s.status));
+    const funilData = (stats.byStatus || []).map(s => s.count);
+    if (chartFunil) chartFunil.destroy();
+    chartFunil = new Chart(funilCtx, {
+        type: 'bar',
+        data: {
+            labels: funilLabels,
+            datasets: [{ label: 'Leads', data: funilData, backgroundColor: '#2563eb' }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } } }
+    });
+
+    const origemCtx = document.getElementById('chartOrigem');
+    const origemLabels = (stats.byOrigem || []).map(o => o.origem || 'Não informado');
+    const origemData = (stats.byOrigem || []).map(o => o.count);
+    if (chartOrigem) chartOrigem.destroy();
+    chartOrigem = new Chart(origemCtx, {
+        type: 'doughnut',
+        data: {
+            labels: origemLabels,
+            datasets: [{ data: origemData, backgroundColor: ['#2563eb', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316', '#64748b', '#0ea5e9', '#84cc16'] }]
+        },
+        options: { responsive: true }
+    });
+}
+
+// ============================
+// MEUS CLIENTES (OCULTO POR PADRÃO)
+// ============================
+function toggleClientsSection() {
+    const section = document.getElementById('clientsSection');
+    const isVisible = section.style.display === 'block';
+    section.style.display = isVisible ? 'none' : 'block';
+
+    if (!isVisible) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+// ============================
+// VIEW MODE (TABELA / KANBAN)
+// ============================
+function setViewMode(mode) {
+    viewMode = mode;
+    document.getElementById('btnViewTable').classList.toggle('active', mode === 'table');
+    document.getElementById('btnViewKanban').classList.toggle('active', mode === 'kanban');
+    document.getElementById('viewTable').style.display = mode === 'table' ? 'block' : 'none';
+    document.getElementById('viewKanban').style.display = mode === 'kanban' ? 'flex' : 'none';
+    render();
+}
+
+// ============================
+// RENDER (TABELA / KANBAN)
+// ============================
+function filteredLeads() {
+    const searchTerm = document.getElementById('searchTerm').value.toLowerCase();
+    const statusFilter = document.getElementById('filterStatus').value;
+    const corretorFilter = document.getElementById('filterCorretor').value;
+    const origemFilter = document.getElementById('filterOrigem').value;
+    const empreendimentoFilter = document.getElementById('filterEmpreendimento').value;
+
+    return leads.filter(l => {
+        const matchSearch = !searchTerm ||
+            (l.nome || '').toLowerCase().includes(searchTerm) ||
+            (l.email && l.email.toLowerCase().includes(searchTerm)) ||
+            (l.tel && l.tel.includes(searchTerm)) ||
+            (l.cpf && l.cpf.includes(searchTerm));
+
+        const matchStatus = !statusFilter || l.status === statusFilter;
+        const matchCorretor = !corretorFilter || String(l.corretor) === corretorFilter;
+        const matchOrigem = !origemFilter || String(l.origem_id) === origemFilter;
+        const matchEmpreendimento = !empreendimentoFilter || String(l.empreendimento_id) === empreendimentoFilter;
+
+        return matchSearch && matchStatus && matchCorretor && matchOrigem && matchEmpreendimento;
+    });
+}
+
+function render() {
+    if (viewMode === 'table') renderTable(); else renderKanban();
+}
+
+function renderTable() {
+    const tbody = document.getElementById('leadsTableBody');
+    const items = filteredLeads();
+
+    tbody.innerHTML = '';
+    items.forEach(l => {
+        const [bg, color] = statusColor(l.status);
+        tbody.innerHTML += `
+            <tr onclick="openLead('${l.id}')">
+                <td><strong>${l.nome}</strong></td>
+                <td>${l.email || '-'}</td>
+                <td>${l.tel || '-'}</td>
+                <td>${l.imovel || '-'}</td>
+                <td>${l.origem_nome || '-'}</td>
+                <td><span class="status" style="background:${bg};color:${color}">${statusLabel(l.status)}</span></td>
+                <td>${l.corretor_nome || l.corretor || '-'}</td>
+                <td>${l.dataAtt || l.dataCad || ''}</td>
+            </tr>
+        `;
+    });
+
+    if (items.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8" style="text-align:center; padding:40px; color:var(--text-muted)">
+                    📭 Nenhum lead encontrado
+                </td>
+            </tr>
+        `;
+    }
+}
+
+function renderKanban() {
+    const board = document.getElementById('kanbanBoard');
+    const nav = document.getElementById('kanbanStatusNav');
+    if (!board) return;
+
+    const items = filteredLeads();
+    const grouped = {};
+    STATUS_LIST.forEach(s => grouped[s.key] = []);
+
+    items.forEach(l => {
+        const key = displayStatusKey(l.status);
+        if (!grouped[key]) grouped[key] = [];
+        grouped[key].push(l);
+    });
+
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+    if (nav) {
+        nav.innerHTML = STATUS_LIST.map(s => {
+            const count = (grouped[s.key] || []).length;
+            return `<button type="button" class="kanban-status-chip" data-status="${s.key}" onclick="scrollKanbanTo('${s.key}')">
+                ${s.label}<span class="chip-count">${count}</span>
+            </button>`;
+        }).join('');
+    }
+
+    board.innerHTML = STATUS_LIST.map(s => {
+        const [bg, color] = statusColor(s.key);
+        const cards = (grouped[s.key] || []).map(l => {
+            const statusOptions = STATUS_LIST.map(st =>
+                `<option value="${st.key}" ${displayStatusKey(l.status) === st.key ? 'selected' : ''}>${st.label}</option>`
+            ).join('');
+            return `
+            <div class="kanban-card" data-id="${l.id}"
+                 draggable="${isMobile ? 'false' : 'true'}"
+                 ${isMobile ? '' : `ondragstart="onCardDragStart(event, '${l.id}')"`}
+                 onclick="if(!event.target.closest('.kanban-actions'))openLead('${l.id}')">
+                <strong>${l.nome || 'Sem nome'}</strong>
+                <div class="kanban-meta">${l.corretor_nome || ''}</div>
+                <div class="kanban-meta">${l.imovel || ''}</div>
+                <div class="kanban-actions" onclick="event.stopPropagation()">
+                    <select aria-label="Mover status" onchange="moveLeadStatus('${l.id}', this.value)">
+                        ${statusOptions}
+                    </select>
+                </div>
+            </div>`;
+        }).join('');
+
+        return `
+            <div class="kanban-column" data-status="${s.key}" id="kanban-col-${s.key}">
+                <div class="kanban-column-header" style="background:${bg};color:${color}">
+                    <span>${s.label}</span>
+                    <span>${(grouped[s.key] || []).length}</span>
+                </div>
+                <div class="kanban-cards"
+                     ondragover="onColumnDragOver(event)"
+                     ondragleave="onColumnDragLeave(event)"
+                     ondrop="onColumnDrop(event, '${s.key}')">
+                    ${cards || '<div class="kanban-meta" style="padding:8px;text-align:center">Nenhum lead</div>'}
+                </div>
+            </div>`;
+    }).join('');
+
+    // destaca chip da coluna mais à esquerda visível
+    if (isMobile) {
+        highlightKanbanChipFromScroll();
+        board.onscroll = () => highlightKanbanChipFromScroll();
+    }
+}
+
+function scrollKanbanTo(statusKey) {
+    const col = document.getElementById('kanban-col-' + statusKey);
+    const board = document.getElementById('kanbanBoard');
+    if (col && board) {
+        col.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+    }
+    document.querySelectorAll('.kanban-status-chip').forEach(c => {
+        c.classList.toggle('active', c.getAttribute('data-status') === statusKey);
+    });
+}
+
+function highlightKanbanChipFromScroll() {
+    const board = document.getElementById('kanbanBoard');
+    if (!board) return;
+    const cols = [...board.querySelectorAll('.kanban-column')];
+    if (!cols.length) return;
+    const boardLeft = board.getBoundingClientRect().left;
+    let best = cols[0];
+    let bestDist = Infinity;
+    cols.forEach(col => {
+        const d = Math.abs(col.getBoundingClientRect().left - boardLeft);
+        if (d < bestDist) { bestDist = d; best = col; }
+    });
+    const key = best.getAttribute('data-status');
+    document.querySelectorAll('.kanban-status-chip').forEach(c => {
+        c.classList.toggle('active', c.getAttribute('data-status') === key);
+    });
+}
+
+async function moveLeadStatus(leadId, newStatus) {
+    const lead = leads.find(l => String(l.id) === String(leadId));
+    if (!lead || !newStatus) return;
+    const prev = lead.status;
+    lead.status = newStatus;
+    try {
+        if (typeof persistLeadUpdate === 'function') {
+            await persistLeadUpdate(lead, `Status alterado no funil: ${newStatus}`);
+        } else if (typeof api === 'function') {
+            await api('saveLead', {
+                id: lead.id,
+                status: newStatus,
+                note: 'Status alterado no funil',
+                userId: currentUser.id,
+                tel: lead.tel,
+                email: lead.email,
+                imovel: lead.imovel,
+                imovelLink: lead.imovelLink,
+                feedback: lead.feedback || ''
+            });
+        }
+        render();
+        showNotification('Status atualizado');
+    } catch (e) {
+        lead.status = prev;
+        showNotification('Erro ao mover lead');
+        render();
+    }
+}
+
+
+let draggedLeadId = null;
+function onCardDragStart(ev, id) {
+    draggedLeadId = id;
+    ev.dataTransfer.effectAllowed = 'move';
+}
+function onColumnDragOver(ev) {
+    ev.preventDefault();
+    ev.currentTarget.classList.add('drag-over');
+}
+function onColumnDragLeave(ev) {
+    ev.currentTarget.classList.remove('drag-over');
+}
+async function onColumnDrop(ev, newStatus) {
+    ev.preventDefault();
+    ev.currentTarget.classList.remove('drag-over');
+    if (!draggedLeadId) return;
+
+    const lead = leads.find(l => String(l.id) === String(draggedLeadId));
+    if (!lead || lead.status === newStatus) return;
+
+    await persistLeadUpdate(lead, newStatus, `Status alterado no funil para ${statusLabel(newStatus)}`);
+    draggedLeadId = null;
+}
+
+async function persistLeadUpdate(lead, newStatus, note) {
+    const payload = {
+        id_update: lead.id,
+        tel: lead.tel, email: lead.email, imovel: lead.imovel, imovelLink: lead.imovelLink,
+        status: newStatus, feedback: note, note,
+        cpf: lead.cpf, whatsapp: lead.whatsapp, cidade: lead.cidade, estado: lead.estado,
+        origemId: lead.origem_id, empreendimentoId: lead.empreendimento_id, construtoraId: lead.construtora_id,
+        tipoImovel: lead.tipo_imovel, quartos: lead.quartos, valorMin: lead.valor_min, valorMax: lead.valor_max,
+        valorFechado: lead.valor_fechado, comissaoPercentual: lead.comissao_percentual,
+        comissaoRecebida: lead.comissao_recebida,
+        userId: currentUser.id
+    };
+
+    const result = await api('saveLead', payload);
+    if (result.success) {
+        await carregarLeads();
+        await carregarStats();
+        showNotification('✅ Lead atualizado!');
+    } else {
+        showNotification('❌ ' + (result.error || 'Erro ao atualizar lead'));
+    }
+}
+
+// ============================
+// NOVO LEAD
+// ============================
+function toggleForm() {
+    const form = document.getElementById('manualForm');
+    const isVisible = form.style.display === 'grid';
+    form.style.display = isVisible ? 'none' : 'grid';
+    if (!isVisible) document.getElementById('newName').focus();
+}
+
+async function addLeadManual() {
+    const nome = document.getElementById('newName').value.trim();
+    if (!nome) {
+        alert('⚠️ Nome é obrigatório!');
+        document.getElementById('newName').focus();
+        return;
+    }
+
+    const telefone = itiManual.getNumber(intlTelInputUtils.numberFormat.INTERNATIONAL) || document.getElementById('newTel').value;
+
+    const payload = {
+        nome,
+        cpf: document.getElementById('newCpf').value,
+        tel: telefone,
+        whatsapp: document.getElementById('newWhatsapp').value,
+        email: document.getElementById('newEmail').value,
+        cidade: document.getElementById('newCidade').value,
+        estado: document.getElementById('newEstado').value,
+        origemId: document.getElementById('newOrigem').value || null,
+        empreendimentoId: document.getElementById('newEmpreendimento').value || null,
+        construtoraId: document.getElementById('newConstrutora').value || null,
+        tipoImovel: document.getElementById('newTipoImovel').value || null,
+        quartos: document.getElementById('newQuartos').value || null,
+        valorMin: document.getElementById('newValorMin').value || null,
+        valorMax: document.getElementById('newValorMax').value || null,
+        imovel: document.getElementById('newImovel').value || 'N/A',
+        imovelLink: document.getElementById('newImovelLink').value,
+        corretor: document.getElementById('newCorretor').value,
+        status: 'atendimento',
+        feedback: 'Lead cadastrado no sistema',
+        note: 'Lead cadastrado no sistema',
+        userId: currentUser.id
+    };
+
+    const result = await api('saveLead', payload);
+    if (!result.success) {
+        showNotification('❌ ' + (result.error || 'Erro ao salvar lead'));
+        return;
+    }
+
+    ['newName', 'newCpf', 'newEmail', 'newImovel', 'newImovelLink', 'newTel', 'newWhatsapp', 'newCidade', 'newEstado', 'newQuartos', 'newValorMin', 'newValorMax'].forEach(id => {
+        document.getElementById(id).value = '';
+    });
+
+    await carregarLeads();
+    await carregarStats();
+    toggleForm();
+    showNotification('✅ Lead cadastrado com sucesso!');
+}
+
+// ============================
+// MODAL DE LEAD
+// ============================
+
+function navigateTo(page) {
+    document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-item[data-page]').forEach(n => n.classList.remove('active'));
+    const section = document.getElementById('page-' + page);
+    if (section) section.classList.add('active');
+    const navBtn = document.querySelector('.nav-item[data-page="' + page + '"]');
+    if (navBtn) navBtn.classList.add('active');
+    const title = document.getElementById('pageTitle');
+    const titles = { dashboard: 'Dashboard', clientes: 'Meus Clientes', imoveis: 'Imóveis', admin: 'Admin' };
+    if (title) title.innerText = titles[page] || page;
+    if (typeof closeSidebar === 'function') closeSidebar();
+    if (page === 'imoveis') {
+        if (typeof carregarImoveis === 'function') carregarImoveis();
+        if (typeof carregarStatsImoveis === 'function') carregarStatsImoveis();
+        if (typeof popularSelectsImovel === 'function') popularSelectsImovel();
+    }
+}
+function toggleSidebar() {
+    document.getElementById('sidebar')?.classList.toggle('open');
+    document.getElementById('sidebarOverlay')?.classList.toggle('visible');
+}
+function closeSidebar() {
+    document.getElementById('sidebar')?.classList.remove('open');
+    document.getElementById('sidebarOverlay')?.classList.remove('visible');
+}
+
+async function openLead(id) {
+    try {
+        activeLead = leads.find(l => String(l.id) === String(id));
+        if (!activeLead) {
+            console.warn('Lead não encontrado:', id, 'total leads:', leads.length);
+            showNotification('Cliente não encontrado na lista. Atualize a página.');
+            return;
+        }
+
+        const setVal = (elId, val) => {
+            const el = document.getElementById(elId);
+            if (el) el.value = val == null ? '' : val;
+        };
+        const setText = (elId, val) => {
+            const el = document.getElementById(elId);
+            if (el) el.innerText = val == null ? '' : val;
+        };
+        const setCheck = (elId, val) => {
+            const el = document.getElementById(elId);
+            if (el) el.checked = !!val;
+        };
+
+        setText('m-nome', activeLead.nome || '');
+        try {
+            if (typeof itiModal !== 'undefined' && itiModal) {
+                itiModal.setNumber(activeLead.tel || '');
+            } else {
+                setVal('m-tel', activeLead.tel || '');
+            }
+        } catch (e) {
+            setVal('m-tel', activeLead.tel || '');
+        }
+
+        setVal('m-whatsapp', activeLead.whatsapp || '');
+        setVal('m-email', activeLead.email || '');
+        setVal('m-cpf', activeLead.cpf || '');
+        setVal('m-cidade', activeLead.cidade || '');
+        setVal('m-estado', activeLead.estado || '');
+        setVal('m-imovel', activeLead.imovel || '');
+        setVal('m-imovelLink', activeLead.imovelLink || '');
+        setVal('m-origem', activeLead.origem_id || '');
+        setVal('m-empreendimento', activeLead.empreendimento_id || '');
+        setVal('m-construtora', activeLead.construtora_id || '');
+        setVal('m-tipoImovel', activeLead.tipo_imovel || '');
+        setVal('m-quartos', activeLead.quartos || '');
+        setVal('m-valorMin', activeLead.valor_min || '');
+        setVal('m-valorMax', activeLead.valor_max || '');
+        setVal('m-valorFechado', activeLead.valor_fechado || '');
+        setVal('m-comissaoPercentual', activeLead.comissao_percentual || '');
+        setCheck('m-comissaoRecebida', activeLead.comissao_recebida);
+
+        if (typeof renderStatusButtons === 'function') renderStatusButtons(activeLead.status);
+        setVal('m-note', '');
+        setVal('m-scheduleData', '');
+        setVal('m-scheduleNota', '');
+
+        const btnDel = document.getElementById('btnDeleteLead');
+        if (btnDel) btnDel.style.display = (typeof can === 'function' && can('delete_lead')) ? 'inline-flex' : 'none';
+
+        const redirSec = document.getElementById('redirectLeadSection');
+        if (redirSec) {
+            const may = typeof can === 'function' && can('reassign_lead');
+            redirSec.style.display = may ? 'block' : 'none';
+            if (may && typeof populateRedirectCorretores === 'function') populateRedirectCorretores();
+        }
+
+        if (typeof renderTimeline === 'function') renderTimeline(activeLead.hist || []);
+
+        const modal = document.getElementById('modal');
+        if (modal) {
+            openModalEl('modal');
+        } else {
+            console.error('Elemento #modal não encontrado');
+            return;
+        }
+
+        if (typeof loadObservacoes === 'function' && typeof loadTarefas === 'function') {
+            await Promise.all([loadObservacoes(id), loadTarefas(id)]);
+        }
+    } catch (err) {
+        console.error('Erro ao abrir cliente:', err);
+        showNotification('Erro ao abrir cliente. Veja o console (F12).');
+        // tenta abrir o modal mesmo assim
+        const modal = document.getElementById('modal');
+        if (modal) openModalEl('modal');
+    }
+}
+
+function renderTimeline(hist) {
+    const timeline = document.getElementById('m-timeline');
+    if (!hist || hist.length === 0) {
+        timeline.innerHTML = "<div style='color:var(--text-muted)'>Sem histórico</div>";
+        return;
+    }
+    timeline.innerHTML = hist.slice().reverse().map(h => `
+        <div>
+            <span class="timeline-tag status">${statusLabel(h.status)}</span>
+            <b>${h.data}</b> - ${h.note || ''}
+        </div>
+    `).join('');
+}
+
+async function loadObservacoes(leadId) {
+    const result = await api('listObservacoes', { leadId }, 'GET');
+    const box = document.getElementById('m-observacoes');
+    const obs = result.success ? result.observacoes : [];
+
+    if (!obs.length) {
+        box.innerHTML = "<div style='color:var(--text-muted); font-size:12px;'>Nenhuma observação ainda.</div>";
+        return;
+    }
+
+    box.innerHTML = obs.map(o => `
+        <div class="obs-item">
+            <div><strong>${o.usuario_nome || 'Usuário'}</strong> - ${o.texto}</div>
+            <div class="kanban-meta">${new Date(o.created_at).toLocaleString('pt-BR')}</div>
+        </div>
+    `).join('');
+}
+
+async function addObservacao() {
+    const texto = document.getElementById('m-newObservacao').value.trim();
+    if (!texto || !activeLead) return;
+
+    const result = await api('addObservacao', { leadId: activeLead.id, texto, userId: currentUser.id });
+    if (result.success) {
+        document.getElementById('m-newObservacao').value = '';
+        await loadObservacoes(activeLead.id);
+        showNotification('✅ Observação adicionada!');
+    }
+}
+
+async function loadTarefas(leadId) {
+    const result = await api('listTarefas', { leadId }, 'GET');
+    const box = document.getElementById('m-tarefas');
+    const tarefas = result.success ? result.tarefas : [];
+
+    if (!tarefas.length) {
+        box.innerHTML = "<div style='color:var(--text-muted); font-size:12px;'>Nenhuma tarefa criada.</div>";
+        return;
+    }
+
+    box.innerHTML = tarefas.map(t => `
+        <div class="task-item ${t.status === 'concluida' ? 'concluida' : ''}">
+            <div>
+                <input type="checkbox" ${t.status === 'concluida' ? 'checked' : ''} onchange="toggleTarefa(${t.id}, this.checked)">
+                <strong>${t.titulo}</strong> <span class="priority-badge priority-${t.prioridade}">${t.prioridade}</span>
+                <div class="kanban-meta">${t.prazo ? new Date(t.prazo).toLocaleString('pt-BR') : 'sem prazo'} · ${t.responsavel_nome || ''}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+async function addTarefa() {
+    const titulo = document.getElementById('m-newTarefaTitulo').value.trim();
+    if (!titulo || !activeLead) {
+        alert('Informe o título da tarefa.');
+        return;
+    }
+
+    const payload = {
+        leadId: activeLead.id,
+        titulo,
+        prazo: document.getElementById('m-newTarefaPrazo').value || null,
+        prioridade: document.getElementById('m-newTarefaPrioridade').value,
+        responsavelId: (activeLead.corretor !== null && activeLead.corretor !== undefined) ? activeLead.corretor : currentUser.id,
+        status: 'pendente'
+    };
+
+    const result = await api('addTarefa', payload);
+    if (result.success) {
+        document.getElementById('m-newTarefaTitulo').value = '';
+        document.getElementById('m-newTarefaPrazo').value = '';
+        await loadTarefas(activeLead.id);
+        showNotification('✅ Tarefa criada!');
+    }
+}
+
+async function toggleTarefa(id, checked) {
+    await api('updateTarefa', { id, status: checked ? 'concluida' : 'pendente' });
+    if (activeLead) await loadTarefas(activeLead.id);
+}
+
+async function agendarProximoContato() {
+    if (!activeLead) return;
+
+    const prazo = document.getElementById('m-scheduleData').value;
+    if (!prazo) {
+        alert('Escolha a data e hora do próximo contato.');
+        return;
+    }
+    const nota = document.getElementById('m-scheduleNota').value.trim();
+
+    const payload = {
+        leadId: activeLead.id,
+        titulo: nota || 'Próximo contato',
+        prazo,
+        prioridade: 'media',
+        responsavelId: (activeLead.corretor !== null && activeLead.corretor !== undefined) ? activeLead.corretor : currentUser.id,
+        status: 'pendente'
+    };
+
+    const result = await api('addTarefa', payload);
+    if (result.success) {
+        document.getElementById('m-scheduleData').value = '';
+        document.getElementById('m-scheduleNota').value = '';
+        await loadTarefas(activeLead.id);
+        showNotification('📅 Próximo contato agendado!');
+    } else {
+        showNotification('❌ ' + (result.error || 'Erro ao agendar contato'));
+    }
+}
+
+function abrirWhatsapp() {
+    const numero = (document.getElementById('m-whatsapp').value || '').replace(/\D/g, '');
+    if (!numero) {
+        alert('Informe o número de WhatsApp primeiro.');
+        return;
+    }
+    window.open(`https://wa.me/${numero}`, '_blank');
+}
+
+async function saveUpdate() {
+    const note = document.getElementById('m-note').value.trim();
+    const newStatus = activeLead.status;
+
+    activeLead.tel = itiModal.getNumber(intlTelInputUtils.numberFormat.INTERNATIONAL) || document.getElementById('m-tel').value;
+    activeLead.whatsapp = document.getElementById('m-whatsapp').value;
+    activeLead.email = document.getElementById('m-email').value;
+    activeLead.cpf = document.getElementById('m-cpf').value;
+    activeLead.cidade = document.getElementById('m-cidade').value;
+    activeLead.estado = document.getElementById('m-estado').value;
+    activeLead.imovel = document.getElementById('m-imovel').value;
+    activeLead.imovelLink = document.getElementById('m-imovelLink').value;
+    activeLead.origem_id = document.getElementById('m-origem').value || null;
+    activeLead.empreendimento_id = document.getElementById('m-empreendimento').value || null;
+    activeLead.construtora_id = document.getElementById('m-construtora').value || null;
+    activeLead.tipo_imovel = document.getElementById('m-tipoImovel').value || null;
+    activeLead.quartos = document.getElementById('m-quartos').value || null;
+    activeLead.valor_min = document.getElementById('m-valorMin').value || null;
+    activeLead.valor_max = document.getElementById('m-valorMax').value || null;
+    activeLead.valor_fechado = document.getElementById('m-valorFechado').value || null;
+    activeLead.comissao_percentual = document.getElementById('m-comissaoPercentual').value || null;
+    activeLead.comissao_recebida = document.getElementById('m-comissaoRecebida').checked ? 1 : 0;
+    activeLead.status = newStatus;
+
+    await persistLeadUpdate(activeLead, newStatus, note || 'Lead atualizado');
+
+    document.getElementById('m-note').value = '';
+    closeModal();
+}
+
+async function deleteLead() {
+    if (!activeLead || (typeof can === 'function' ? !can('delete_lead') : currentUser.role !== 'Admin' && currentUser.role !== 'Root')) return;
+    const ok = await confirmDialog(
+        'Excluir cliente',
+        `Tem certeza que deseja excluir o cliente "${activeLead.nome}"?\n\nEssa ação não pode ser desfeita.`
+    );
+    if (!ok) return;
+
+    const result = await api('deleteLead', { leadId: activeLead.id, role: currentUser.role, userId: currentUser.id });
+    if (result.success) {
+        closeModal();
+        await carregarLeads();
+        await carregarStats();
+        showNotification('🗑️ Lead removido.');
+    } else {
+        showNotification('❌ ' + (result.error || 'Erro ao remover lead'));
+    }
+}
+
+function closeModal() {
+    closeModalEl('modal', () => { activeLead = null; });
+}
+
+// ============================
+// EXPORTAR
+// ============================
+async function exportToExcel() {
+    if (currentUser.role !== 'Admin') {
+        alert('❌ Ação permitida apenas para administradores.');
+        return;
+    }
+
+    const result = await api('exportLeads', { role: currentUser.role }, 'GET');
+    if (!result.success) {
+        showNotification('❌ Erro ao exportar');
+        return;
+    }
+
+    let csv = '﻿';
+    csv += 'Nome;Email;Telefone;CPF;Cidade;Imovel;Origem;Empreendimento;Status;Corretor;Valor Fechado;Comissao;Data Cadastro;Data Atualizacao\n';
+
+    result.leads.forEach(l => {
+        csv += `${l.nome};${l.email || ''};${l.tel || ''};${l.cpf || ''};${l.cidade || ''};${l.imovel || ''};${l.origem_nome || ''};${l.empreendimento_nome || ''};${statusLabel(l.status)};${l.corretor_nome || ''};${l.valor_fechado || ''};${l.comissao_valor || ''};${l.dataCad};${l.dataAtt}\n`;
+    });
+
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
+    link.download = `Relatorio_Leads_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+
+    showNotification('📊 Relatório exportado com sucesso!');
+}
+
+// ============================
+// SENHA
+// ============================
+
+function toggleUserMenu(e) {
+    if (e) e.stopPropagation();
+    const m = document.getElementById('userMenuDropdown');
+    if (m) m.classList.toggle('open');
+}
+function closeUserMenu() {
+    const m = document.getElementById('userMenuDropdown');
+    if (m) m.classList.remove('open');
+}
+document.addEventListener('click', function () { closeUserMenu(); });
+
+async function changePassword() {
+    const currentPassword = prompt('Digite sua senha atual:');
+    if (!currentPassword) return;
+    const newPassword = prompt('Digite sua nova senha (mínimo 3 caracteres):');
+    if (!newPassword || newPassword.length < 3) {
+        if (newPassword) alert('⚠️ A senha deve ter no mínimo 3 caracteres.');
+        return;
+    }
+
+    const result = await api('changePassword', { userId: currentUser.id, currentPassword, newPassword });
+    showNotification(result.success ? '✅ Senha alterada com sucesso!' : '❌ ' + (result.error || 'Erro ao alterar senha'));
+}
+
+// ============================
+// ADMIN - MODAL GENÉRICO
+// ============================
+function openAdminModal(title) {
+    const t = document.getElementById('am-title');
+    if (t) t.innerText = title;
+    openModalEl('adminModal');
+}
+function closeAdminModal() {
+    closeModalEl('adminModal');
+}
+
+let _adminUsersCache = [];
+
+async function openAdminUsers() {
+    openAdminModal('👥 Usuários');
+    const result = await api('listUsers', { role: currentUser.role }, 'GET');
+    const users = result.success ? result.users : [];
+    _adminUsersCache = users;
+
+    const coordenadores = users.filter(u => u.role === 'Admin' || u.role === 'Coordenador');
+    const coordenadorOptions = coordenadores.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+
+    const rows = users.map(u => `
+        <div class="admin-list-item">
+            <div>
+                <strong>${u.name}</strong> (${u.username}) - ${u.role} ${u.ativo ? '' : '<span style=\"color:var(--danger)\">[inativo]</span>'}
+            </div>
+            <div style="display:flex; gap:6px;">
+                <button class="btn-secondary btn-small" onclick="adminEditUser('${u.id}')">✏️ Editar</button>
+                <button class="btn-reset" onclick="adminResetPassword('${u.id}')">🔑 Reset</button>
+                <button class="btn-danger btn-small" onclick="adminDeleteUser('${u.id}')">Excluir</button>
+            </div>
+        </div>
+    `).join('');
+
+    document.getElementById('am-body').innerHTML = `
+        <div class="modal-section">
+            <h3>Novo Usuário</h3>
+            <div class="modal-grid">
+                <input type="text" id="au-username" placeholder="Usuário de login">
+                <input type="text" id="au-name" placeholder="Nome completo">
+                <select id="au-role">
+                    <option value="Corretor">Corretor</option>
+                    <option value="Corretora">Corretora</option>
+                    <option value="Coordenador">Coordenador</option>
+                    ${currentUser.role === 'Admin' ? '<option value="Admin">Admin</option>' : ''}
+                </select>
+                <select id="au-coordenador"><option value="">Sem coordenador</option>${coordenadorOptions}</select>
+                <input type="email" id="au-email" placeholder="Email">
+                <input type="text" id="au-telefone" placeholder="Telefone">
+                <input type="text" id="au-creci" placeholder="CRECI">
+                <input type="text" id="au-whatsapp" placeholder="WhatsApp">
+            </div>
+            <button class="btn-success btn-small" style="margin-top:10px;" onclick="adminCreateUser()">➕ Cadastrar (senha padrão: 123)</button>
+        </div>
+        <div class="modal-section">
+            <h3>Reatribuir meus leads</h3>
+            <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">
+                Após excluir um usuário, os clientes dele ficam com você. Use isto para indicar outro corretor.
+            </p>
+            <div class="modal-grid">
+                <select id="ar-toUser">
+                    <option value="">Selecione o corretor de destino</option>
+                    ${users.filter(u => String(u.id) !== String(currentUser.id) && u.ativo !== 0 && u.ativo !== false)
+                        .map(u => `<option value="${u.id}">${u.name} (${u.role})</option>`).join('')}
+                </select>
+                <button class="btn-primary btn-small" type="button" onclick="adminReassignLeads()">Reatribuir leads</button>
+            </div>
+        </div>
+        <div class="modal-section">
+            <h3>Usuários Cadastrados</h3>
+            ${rows || '<p style="color:var(--text-muted)">Nenhum usuário encontrado.</p>'}
+        </div>
+    `;
+}
+
+async function adminCreateUser() {
+    const payload = {
+        username: document.getElementById('au-username').value.trim(),
+        name: document.getElementById('au-name').value.trim(),
+        role: document.getElementById('au-role').value,
+        coordenadorId: document.getElementById('au-coordenador').value || null,
+        email: document.getElementById('au-email').value.trim(),
+        telefone: document.getElementById('au-telefone').value.trim(),
+        creci: document.getElementById('au-creci').value.trim(),
+        whatsapp: document.getElementById('au-whatsapp').value.trim(),
+        password: '123',
+        adminRole: currentUser.role,
+        adminId: currentUser.id
+    };
+
+    if (!payload.username || !payload.name) {
+        alert('Preencha usuário e nome.');
+        return;
+    }
+
+    const result = await api('createUser', payload);
+    if (result.success) {
+        showNotification('✅ Usuário cadastrado! Senha padrão: 123');
+        await carregarCorretores();
+        openAdminUsers();
+    } else {
+        showNotification('❌ ' + (result.error || 'Erro ao cadastrar usuário'));
+    }
+}
+
+function adminEditUser(userId) {
+    const u = _adminUsersCache.find(x => String(x.id) === String(userId));
+    if (!u) return;
+
+    const coordenadores = _adminUsersCache.filter(x => (x.role === 'Admin' || x.role === 'Coordenador') && String(x.id) !== String(u.id));
+    const coordenadorOptions = coordenadores.map(c => `<option value="${c.id}" ${String(u.coordenador_id) === String(c.id) ? 'selected' : ''}>${c.name}</option>`).join('');
+
+    document.getElementById('am-body').innerHTML = `
+        <div class="modal-section">
+            <h3>Editar Usuário: ${u.name}</h3>
+            <div class="modal-grid">
+                <div class="field-group">
+                    <label>Nome completo</label>
+                    <input type="text" id="eu-name" value="${u.name || ''}">
+                </div>
+                <div class="field-group">
+                    <label>Perfil</label>
+                    <select id="eu-role">
+                        <option value="Corretor" ${u.role === 'Corretor' ? 'selected' : ''}>Corretor</option>
+                        <option value="Corretora" ${u.role === 'Corretora' ? 'selected' : ''}>Corretora</option>
+                        <option value="Coordenador" ${u.role === 'Coordenador' ? 'selected' : ''}>Coordenador</option>
+                        ${currentUser.role === 'Admin' ? `<option value="Admin" ${u.role === 'Admin' ? 'selected' : ''}>Admin</option>` : ''}
+                    </select>
+                </div>
+                <div class="field-group">
+                    <label>Coordenador</label>
+                    <select id="eu-coordenador"><option value="">Sem coordenador</option>${coordenadorOptions}</select>
+                </div>
+                <div class="field-group">
+                    <label>Email</label>
+                    <input type="email" id="eu-email" value="${u.email || ''}">
+                </div>
+                <div class="field-group">
+                    <label>Telefone</label>
+                    <input type="text" id="eu-telefone" value="${u.telefone || ''}">
+                </div>
+                <div class="field-group">
+                    <label>CRECI</label>
+                    <input type="text" id="eu-creci" value="${u.creci || ''}">
+                </div>
+                <div class="field-group">
+                    <label>WhatsApp</label>
+                    <input type="text" id="eu-whatsapp" value="${u.whatsapp || ''}">
+                </div>
+                <div class="field-group">
+                    <label>CPF</label>
+                    <input type="text" id="eu-cpf" value="${u.cpf || ''}">
+                </div>
+                <div class="field-group">
+                    <label>Meta Mensal</label>
+                    <input type="number" id="eu-metaMensal" value="${u.meta_mensal || ''}">
+                </div>
+                <div class="field-group">
+                    <label>Comissão (%)</label>
+                    <input type="number" step="0.1" id="eu-comissaoPercentual" value="${u.comissao_percentual || ''}">
+                </div>
+                <div class="field-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="eu-ativo" ${u.ativo ? 'checked' : ''}>
+                        <label for="eu-ativo">Usuário ativo</label>
+                    </div>
+                </div>
+            </div>
+            <div style="display:flex; gap:10px; margin-top:15px;">
+                <button class="btn-secondary btn-small" onclick="openAdminUsers()">← Voltar</button>
+                <button class="btn-success btn-small" onclick="adminSaveUserEdit('${u.id}')">💾 Salvar Alterações</button>
+            </div>
+        </div>
+    `;
+}
+
+async function adminSaveUserEdit(userId) {
+    const payload = {
+        userId,
+        name: document.getElementById('eu-name').value.trim(),
+        role: document.getElementById('eu-role').value,
+        coordenadorId: document.getElementById('eu-coordenador').value || null,
+        email: document.getElementById('eu-email').value.trim(),
+        telefone: document.getElementById('eu-telefone').value.trim(),
+        creci: document.getElementById('eu-creci').value.trim(),
+        whatsapp: document.getElementById('eu-whatsapp').value.trim(),
+        cpf: document.getElementById('eu-cpf').value.trim(),
+        metaMensal: document.getElementById('eu-metaMensal').value || null,
+        comissaoPercentual: document.getElementById('eu-comissaoPercentual').value || null,
+        ativo: document.getElementById('eu-ativo').checked ? 1 : 0,
+        adminRole: currentUser.role,
+        adminId: currentUser.id
+    };
+
+    if (!payload.name) {
+        alert('O nome não pode ficar vazio.');
+        return;
+    }
+
+    const result = await api('updateUser', payload);
+    if (result.success) {
+        showNotification('✅ Usuário atualizado!');
+        await carregarCorretores();
+        openAdminUsers();
+    } else {
+        showNotification('❌ ' + (result.error || 'Erro ao atualizar usuário'));
+    }
+}
+
+async function adminResetPassword(userId) {
+    if (!confirm('Resetar senha deste usuário para "123"?')) return;
+    const result = await api('resetPassword', { userId, newPassword: '123', adminRole: currentUser.role, adminId: currentUser.id });
+    showNotification(result.success ? '✅ Senha resetada!' : '❌ Erro ao resetar senha');
+}
+
+async function adminDeleteUser(userId) {
+    if (String(userId) === String(currentUser.id)) {
+        showNotification('Você não pode excluir a si mesmo.');
+        return;
+    }
+    const ok1 = await confirmDialog(
+        'Excluir usuário',
+        'Excluir este usuário definitivamente?\n\nOs clientes (leads) dele serão transferidos para você.'
+    );
+    if (!ok1) return;
+    const ok2 = await confirmDialog(
+        'Confirmação final',
+        'Esta ação é permanente e não pode ser desfeita.\n\nDeseja continuar?',
+        { okText: 'Sim, excluir' }
+    );
+    if (!ok2) return;
+    const result = await api('deleteUser', { userId, adminRole: currentUser.role, adminId: currentUser.id });
+    if (result.success) {
+        showNotification(result.message || 'Usuário excluído.');
+        openAdminUsers();
+        await carregarCorretores();
+        if (typeof carregarLeads === 'function') await carregarLeads();
+        if (typeof carregarStats === 'function') await carregarStats();
+    } else {
+        showNotification(result.error || 'Erro ao excluir usuário');
+    }
+}
+
+async function adminReassignLeads() {
+    const toUserId = document.getElementById('ar-toUser')?.value;
+    if (!toUserId) {
+        alert('Selecione o corretor de destino.');
+        return;
+    }
+    if (!confirm('Reatribuir os leads que estão com você para o corretor selecionado?')) return;
+    const result = await api('reassignLeads', {
+        fromUserId: currentUser.id,
+        toUserId,
+        role: currentUser.role,
+        userId: currentUser.id,
+        adminId: currentUser.id
+    });
+    if (result.success) {
+        showNotification(result.message || 'Leads reatribuídos!');
+        if (typeof carregarLeads === 'function') await carregarLeads();
+        if (typeof carregarStats === 'function') await carregarStats();
+        openAdminUsers();
+    } else {
+        showNotification(result.error || 'Erro ao reatribuir');
+    }
+}
+
+async function openAdminEmpreendimentos() {
+    openAdminModal('🏗️ Empreendimentos');
+    await carregarConstrutoras();
+
+    const construtoraOptions = construtoras.map(c => `<option value="${c.id}">${c.nome}</option>`).join('');
+    const rows = empreendimentos.map(e => `
+        <div class="admin-list-item">
+            <div><strong>${e.nome}</strong> - ${e.construtora_nome || 'sem construtora'} (${e.cidade || ''}/${e.estado || ''})</div>
+            <button class="btn-danger btn-small" onclick="adminDeleteEmpreendimento(${e.id})">🗑️</button>
+        </div>
+    `).join('');
+
+    document.getElementById('am-body').innerHTML = `
+        <div class="modal-section">
+            <h3>Novo Empreendimento</h3>
+            <div class="modal-grid">
+                <input type="text" id="ae-nome" placeholder="Nome do empreendimento">
+                <select id="ae-construtora"><option value="">Sem construtora</option>${construtoraOptions}</select>
+                <input type="text" id="ae-endereco" placeholder="Endereço">
+                <input type="text" id="ae-cidade" placeholder="Cidade">
+                <input type="text" id="ae-estado" maxlength="2" placeholder="UF">
+                <input type="text" id="ae-tipo" placeholder="Tipo (apartamento, casa...)">
+                <input type="number" id="ae-valorMin" placeholder="Valor mínimo">
+                <input type="number" id="ae-valorMax" placeholder="Valor máximo">
+                <input type="url" id="ae-tabela" placeholder="URL da tabela de preços">
+            </div>
+            <button class="btn-success btn-small" style="margin-top:10px;" onclick="adminCreateEmpreendimento()">➕ Cadastrar</button>
+        </div>
+        <div class="modal-section">
+            <h3>Empreendimentos Cadastrados</h3>
+            ${rows || '<p style="color:var(--text-muted)">Nenhum empreendimento cadastrado.</p>'}
+        </div>
+    `;
+}
+
+async function adminCreateEmpreendimento() {
+    const nome = document.getElementById('ae-nome').value.trim();
+    if (!nome) { alert('Informe o nome.'); return; }
+
+    const payload = {
+        nome,
+        construtoraId: document.getElementById('ae-construtora').value || null,
+        endereco: document.getElementById('ae-endereco').value,
+        cidade: document.getElementById('ae-cidade').value,
+        estado: document.getElementById('ae-estado').value,
+        tipo: document.getElementById('ae-tipo').value,
+        valorMin: document.getElementById('ae-valorMin').value || null,
+        valorMax: document.getElementById('ae-valorMax').value || null,
+        tabelaPrecosUrl: document.getElementById('ae-tabela').value,
+        role: currentUser.role
+    };
+
+    const result = await api('saveEmpreendimento', payload);
+    if (result.success) {
+        await carregarEmpreendimentos();
+        openAdminEmpreendimentos();
+        showNotification('✅ Empreendimento cadastrado!');
+    } else {
+        showNotification('❌ ' + (result.error || 'Erro ao cadastrar'));
+    }
+}
+
+async function adminDeleteEmpreendimento(id) {
+    if (!(await confirmDialog('Remover empreendimento', 'Tem certeza que deseja remover este empreendimento?'))) return;
+    await api('deleteEmpreendimento', { id, role: currentUser.role });
+    await carregarEmpreendimentos();
+    openAdminEmpreendimentos();
+}
+
+async function openAdminConstrutoras() {
+    openAdminModal('🏢 Construtoras');
+    const rows = construtoras.map(c => `
+        <div class="admin-list-item">
+            <div><strong>${c.nome}</strong> ${c.telefone ? '- ' + c.telefone : ''}</div>
+            <button class="btn-danger btn-small" onclick="adminDeleteConstrutora(${c.id})">🗑️</button>
+        </div>
+    `).join('');
+
+    document.getElementById('am-body').innerHTML = `
+        <div class="modal-section">
+            <h3>Nova Construtora</h3>
+            <div class="modal-grid">
+                <input type="text" id="ac-nome" placeholder="Nome">
+                <input type="text" id="ac-cnpj" placeholder="CNPJ">
+                <input type="text" id="ac-telefone" placeholder="Telefone">
+                <input type="email" id="ac-email" placeholder="Email">
+                <input type="url" id="ac-site" placeholder="Site">
+            </div>
+            <button class="btn-success btn-small" style="margin-top:10px;" onclick="adminCreateConstrutora()">➕ Cadastrar</button>
+        </div>
+        <div class="modal-section">
+            <h3>Construtoras Cadastradas</h3>
+            ${rows || '<p style="color:var(--text-muted)">Nenhuma construtora cadastrada.</p>'}
+        </div>
+    `;
+}
+
+async function adminCreateConstrutora() {
+    const nome = document.getElementById('ac-nome').value.trim();
+    if (!nome) { alert('Informe o nome.'); return; }
+
+    const payload = {
+        nome,
+        cnpj: document.getElementById('ac-cnpj').value,
+        telefone: document.getElementById('ac-telefone').value,
+        email: document.getElementById('ac-email').value,
+        site: document.getElementById('ac-site').value,
+        role: currentUser.role
+    };
+
+    const result = await api('saveConstrutora', payload);
+    if (result.success) {
+        await carregarConstrutoras();
+        openAdminConstrutoras();
+        showNotification('✅ Construtora cadastrada!');
+    } else {
+        showNotification('❌ ' + (result.error || 'Erro ao cadastrar'));
+    }
+}
+
+async function adminDeleteConstrutora(id) {
+    if (!(await confirmDialog('Remover construtora', 'Tem certeza que deseja remover esta construtora?'))) return;
+    await api('deleteConstrutora', { id, role: currentUser.role });
+    await carregarConstrutoras();
+    openAdminConstrutoras();
+}
+
+async function openAdminOrigens() {
+    openAdminModal('🌐 Origens de Leads');
+    const rows = origens.map(o => `
+        <div class="admin-list-item">
+            <div><strong>${o.nome}</strong></div>
+            <button class="btn-danger btn-small" onclick="adminDeleteOrigem(${o.id})">🗑️</button>
+        </div>
+    `).join('');
+
+    document.getElementById('am-body').innerHTML = `
+        <div class="modal-section">
+            <h3>Nova Origem</h3>
+            <div class="modal-grid">
+                <input type="text" id="ao-nome" placeholder="Nome da origem">
+            </div>
+            <button class="btn-success btn-small" style="margin-top:10px;" onclick="adminCreateOrigem()">➕ Cadastrar</button>
+        </div>
+        <div class="modal-section">
+            <h3>Origens Cadastradas</h3>
+            ${rows}
+        </div>
+    `;
+}
+
+async function adminCreateOrigem() {
+    const nome = document.getElementById('ao-nome').value.trim();
+    if (!nome) { alert('Informe o nome.'); return; }
+
+    const result = await api('saveOrigem', { nome, role: currentUser.role });
+    if (result.success) {
+        await carregarOrigens();
+        openAdminOrigens();
+        showNotification('✅ Origem cadastrada!');
+    } else {
+        showNotification('❌ ' + (result.error || 'Erro ao cadastrar'));
+    }
+}
+
+async function adminDeleteOrigem(id) {
+    if (!(await confirmDialog('Remover origem', 'Tem certeza que deseja remover esta origem?'))) return;
+    await api('deleteOrigem', { id, role: currentUser.role });
+    await carregarOrigens();
+    openAdminOrigens();
+}
+
+// ============================
+// NOTIFICAÇÃO VISUAL
+// ============================
+
+
+function openModalEl(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.remove('closing');
+    el.style.display = 'flex';
+    // force reflow so transition runs
+    void el.offsetWidth;
+    el.classList.add('open');
+}
+function closeModalEl(id, onDone) {
+    const el = document.getElementById(id);
+    if (!el) { if (onDone) onDone(); return; }
+    el.classList.remove('open');
+    el.classList.add('closing');
+    const done = () => {
+        el.classList.remove('closing');
+        el.style.display = 'none';
+        el.removeEventListener('transitionend', onEnd);
+        if (onDone) onDone();
+    };
+    const onEnd = (e) => {
+        if (e.target !== el) return;
+        done();
+    };
+    el.addEventListener('transitionend', onEnd);
+    setTimeout(done, 320); // fallback
+}
+
+function confirmDialog(title, message, { okText = 'Excluir', cancelText = 'Cancelar', danger = true } = {}) {
+    return new Promise((resolve) => {
+        const modal = document.getElementById('confirmModal');
+        const titleEl = document.getElementById('confirmTitle');
+        const msgEl = document.getElementById('confirmMessage');
+        const okBtn = document.getElementById('confirmOkBtn');
+        const cancelBtn = document.getElementById('confirmCancelBtn');
+        if (!modal || !okBtn || !cancelBtn) {
+            resolve(window.confirm((title ? title + '\n\n' : '') + (message || '')));
+            return;
+        }
+        titleEl.textContent = title || 'Confirmar';
+        msgEl.textContent = message || 'Deseja continuar?';
+        okBtn.textContent = okText;
+        cancelBtn.textContent = cancelText;
+        okBtn.className = danger ? 'btn-danger' : 'btn-primary';
+
+        const cleanup = (result) => {
+            okBtn.onclick = null;
+            cancelBtn.onclick = null;
+            modal.onclick = null;
+            closeModalEl('confirmModal', () => resolve(result));
+        };
+        okBtn.onclick = () => cleanup(true);
+        cancelBtn.onclick = () => cleanup(false);
+        modal.onclick = (e) => { if (e.target === modal) cleanup(false); };
+        openModalEl('confirmModal');
+        setTimeout(() => okBtn.focus(), 50);
+    });
+}
+
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--success);
+        color: white;
+        padding: 15px 20px;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-lg);
+        z-index: 1001;
+        font-weight: 600;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+    `;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+
+    setTimeout(() => { notification.style.transform = 'translateX(0)'; }, 100);
+    setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => document.body.removeChild(notification), 300);
+    }, 3000);
+}
+
+// ============================
+// EVENTOS GLOBAIS
+// ============================
+window.onclick = function (event) {
+    const modal = document.getElementById('modal');
+    const adminModal = document.getElementById('adminModal');
+    if (event.target === modal) closeModal();
+    if (event.target === adminModal) closeAdminModal();
+};
+
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+        const cm = document.getElementById('confirmModal');
+        if (cm && cm.classList.contains('open')) {
+            document.getElementById('confirmCancelBtn')?.click();
+            return;
+        }
+        closeModal();
+        closeAdminModal();
+    }
+    if (e.ctrlKey && e.key === 'n' && currentUser) {
+        e.preventDefault();
+        toggleForm();
+    }
+});
+    
+
+// ============================
+// MÓDULO DE IMÓVEIS
+// ============================
+let imoveis = [];
+let activeImovel = null;
+let imovelViewMode = 'table';
+
+async function carregarImoveis() {
+    if (!currentUser) return;
+    const result = await api('listImoveis', { role: currentUser.role, corretor: currentUser.id }, 'GET');
+    imoveis = result.success ? (result.imoveis || []) : [];
+    renderImoveis();
+}
+const link = `https://vinutto.com/imovel.html?id=${activeImovel.slug || activeImovel.codigo}`;
+navigator.clipboard.writeText(link);
+showNotification('Link copiado: ' + link);
+async function carregarStatsImoveis() {
+    if (!currentUser) return;
+    const result = await api('statsImoveis', { role: currentUser.role, corretor: currentUser.id }, 'GET');
+    if (!result.success) return;
+    const s = result.stats || {};
+    const el = document.getElementById('imoveisDashCards');
+    if (!el) return;
+    el.innerHTML = `
+        <div class="dash-card info"><div class="dash-label">Total</div><div class="dash-value">${s.total||0}</div></div>
+        <div class="dash-card success"><div class="dash-label">Disp. Venda</div><div class="dash-value">${s.disponiveis_venda||0}</div></div>
+        <div class="dash-card warning"><div class="dash-label">Disp. Locação</div><div class="dash-value">${s.disponiveis_locacao||0}</div></div>
+        <div class="dash-card"><div class="dash-label">Vendidos</div><div class="dash-value">${s.vendidos||0}</div></div>
+        <div class="dash-card"><div class="dash-label">Alugados</div><div class="dash-value">${s.alugados||0}</div></div>
+        <div class="dash-card success"><div class="dash-label">Carteira Venda</div><div class="dash-value">R$ ${Number(s.valor_carteira_venda||0).toLocaleString('pt-BR')}</div></div>
+    `;
+}
+
+function popularSelectsImovel() {
+    const selC = document.getElementById('imovelCorretor');
+    if (selC) {
+        const list = (typeof corretores !== 'undefined' && Array.isArray(corretores)) ? corretores : [];
+        selC.innerHTML = list.map(c => `<option value="${c.id}" ${String(c.id)===String(currentUser.id)?'selected':''}>${c.name}</option>`).join('');
+        if (!list.length) selC.innerHTML = `<option value="${currentUser.id}">${currentUser.name||currentUser.id}</option>`;
+    }
+    const selConst = document.getElementById('imovelConstrutora');
+    if (selConst) {
+        selConst.innerHTML = '<option value="">Nenhuma</option>' +
+            ((typeof construtoras !== 'undefined' ? construtoras : []) || []).map(c => `<option value="${c.id}">${c.nome}</option>`).join('');
+    }
+    const selEmp = document.getElementById('imovelEmpreendimento');
+    if (selEmp) {
+        selEmp.innerHTML = '<option value="">Nenhum</option>' +
+            ((typeof empreendimentos !== 'undefined' ? empreendimentos : []) || []).map(e => `<option value="${e.id}">${e.nome}</option>`).join('');
+    }
+}
+
+function labelFinalidade(f) {
+    return { venda:'Venda', locacao:'Locação', venda_locacao:'Venda + Locação' }[f] || f;
+}
+function labelStatusImovel(s) {
+    return { disponivel:'Disponível', reservado:'Reservado', vendido:'Vendido', alugado:'Alugado', inativo:'Inativo' }[s] || s;
+}
+
+function renderImoveis() {
+    const search = (document.getElementById('imovelSearch')?.value || '').toLowerCase();
+    const status = document.getElementById('imovelFilterStatus')?.value || '';
+    const finalidade = document.getElementById('imovelFilterFinalidade')?.value || '';
+    const tipo = document.getElementById('imovelFilterTipo')?.value || '';
+    const cidade = (document.getElementById('imovelFilterCidade')?.value || '').toLowerCase();
+    const categoria = document.getElementById('imovelFilterCategoria')?.value || '';
+
+    let list = (imoveis || []).filter(i => {
+        if (status && i.status !== status) return false;
+        if (finalidade && i.finalidade !== finalidade) return false;
+        if (tipo && i.tipo !== tipo) return false;
+        if (cidade && !(i.cidade||'').toLowerCase().includes(cidade)) return false;
+        if (categoria && (i.categoria_site || 'prontos') !== categoria) return false;
+        if (search) {
+            const t = `${i.codigo||''} ${i.titulo||''} ${i.bairro||''} ${i.endereco||''}`.toLowerCase();
+            if (!t.includes(search)) return false;
+        }
+        return true;
+    });
+
+    if (imovelViewMode === 'table') renderImoveisTable(list);
+    else renderImoveisCards(list);
+}
+
+function renderImoveisTable(lista) {
+    const tbody = document.getElementById('imoveisTbody');
+    if (!tbody) return;
+    if (!lista.length) {
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--text-muted)">Nenhum imóvel encontrado</td></tr>`;
+        return;
+    }
+    tbody.innerHTML = lista.map(i => {
+        const valor = i.finalidade === 'locacao'
+            ? (i.valor_locacao ? `R$ ${Number(i.valor_locacao).toLocaleString('pt-BR')}/mês` : '-')
+            : (i.valor_venda ? `R$ ${Number(i.valor_venda).toLocaleString('pt-BR')}` : '-');
+        return `<tr onclick="abrirImovel(${i.id})">
+            <td><strong>${i.codigo||''}</strong></td>
+            <td>${i.titulo||''}</td>
+            <td>${i.tipo||''}</td>
+            <td>${labelFinalidade(i.finalidade)}</td>
+            <td>${i.cidade||'-'} / ${i.estado||''}</td>
+            <td>${valor}</td>
+            <td><span class="status">${labelStatusImovel(i.status)}</span></td>
+            <td>${i.corretor_nome||'-'}</td>
+            <td><button class="btn-primary btn-small" onclick="event.stopPropagation();abrirImovel(${i.id})">Abrir</button></td>
+        </tr>`;
+    }).join('');
+}
+
+function renderImoveisCards(lista) {
+    const w = document.getElementById('imoveisCardsWrapper');
+    if (!w) return;
+    w.innerHTML = lista.map(i => {
+        const valor = i.finalidade === 'locacao'
+            ? (i.valor_locacao ? `R$ ${Number(i.valor_locacao).toLocaleString('pt-BR')}/mês` : '-')
+            : (i.valor_venda ? `R$ ${Number(i.valor_venda).toLocaleString('pt-BR')}` : '-');
+        return `<div class="kanban-card" style="cursor:pointer" onclick="abrirImovel(${i.id})">
+            ${i.capa_url ? `<img src="${i.capa_url}" style="width:100%;height:130px;object-fit:cover;border-radius:8px;margin-bottom:8px" alt="">` : ''}
+            <strong>${i.titulo||''}</strong>
+            <div class="kanban-meta">${i.codigo||''} • ${i.tipo||''}</div>
+            <div class="kanban-meta">${i.cidade||''} ${i.bairro?'• '+i.bairro:''}</div>
+            <div style="margin-top:6px;font-weight:700;color:var(--primary)">${valor}</div>
+            <div style="margin-top:4px"><span class="status">${labelStatusImovel(i.status)}</span></div>
+        </div>`;
+    }).join('');
+}
+
+function setImovelViewMode(mode) {
+    imovelViewMode = mode;
+    const table = document.getElementById('imoveisTableWrapper');
+    const cards = document.getElementById('imoveisCardsWrapper');
+    if (table) table.style.display = mode === 'table' ? 'block' : 'none';
+    if (cards) cards.style.display = mode === 'cards' ? 'grid' : 'none';
+    document.getElementById('btnImovelViewTable')?.classList.toggle('active', mode === 'table');
+    document.getElementById('btnImovelViewCards')?.classList.toggle('active', mode === 'cards');
+    renderImoveis();
+}
+
+function toggleImovelForm(edit = false) {
+    const form = document.getElementById('imovelForm');
+    if (!form) return;
+    const open = form.style.display === 'grid' || form.style.display === 'block';
+    if (!edit && open) { form.style.display = 'none'; limparFormImovel(); return; }
+    form.style.display = 'grid';
+    if (!edit) limparFormImovel();
+}
+
+function limparFormImovel() {
+    ['imovelId','imovelTitulo','imovelEndereco','imovelNumero','imovelBairro','imovelCidade','imovelEstado','imovelCep',
+     'imovelValorVenda','imovelValorLocacao','imovelValorCondominio','imovelValorIptu','imovelAreaTotal','imovelAreaUtil',
+     'imovelQuartos','imovelSuites','imovelBanheiros','imovelVagas','imovelDescricao','imovelTourUrl','imovelVideoUrl','imovelCapaUrl'
+    ].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+    const t = document.getElementById('imovelTipo'); if (t) t.value = 'Apartamento';
+    const f = document.getElementById('imovelFinalidade'); if (f) f.value = 'venda';
+    const s = document.getElementById('imovelStatus'); if (s) s.value = 'disponivel';
+    const cat = document.getElementById('imovelCategoriaSite'); if (cat) cat.value = 'prontos';
+    const c = document.getElementById('imovelCorretor'); if (c && currentUser) c.value = currentUser.id;
+    const ct = document.getElementById('imovelConstrutora'); if (ct) ct.value = '';
+    const e = document.getElementById('imovelEmpreendimento'); if (e) e.value = '';
+}
+
+async function salvarImovel() {
+    const titulo = (document.getElementById('imovelTitulo')?.value || '').trim();
+    if (!titulo) { alert('Título é obrigatório'); return; }
+    const payload = {
+        id: document.getElementById('imovelId')?.value || null,
+        titulo,
+        tipo: document.getElementById('imovelTipo')?.value,
+        finalidade: document.getElementById('imovelFinalidade')?.value,
+        status: document.getElementById('imovelStatus')?.value,
+        categoria: document.getElementById('imovelCategoriaSite')?.value || 'prontos',
+        endereco: document.getElementById('imovelEndereco')?.value,
+        numero: document.getElementById('imovelNumero')?.value,
+        bairro: document.getElementById('imovelBairro')?.value,
+        cidade: document.getElementById('imovelCidade')?.value,
+        estado: document.getElementById('imovelEstado')?.value,
+        cep: document.getElementById('imovelCep')?.value,
+        valorVenda: document.getElementById('imovelValorVenda')?.value || null,
+        valorLocacao: document.getElementById('imovelValorLocacao')?.value || null,
+        valorCondominio: document.getElementById('imovelValorCondominio')?.value || null,
+        valorIptu: document.getElementById('imovelValorIptu')?.value || null,
+        areaTotal: document.getElementById('imovelAreaTotal')?.value || null,
+        areaUtil: document.getElementById('imovelAreaUtil')?.value || null,
+        quartos: document.getElementById('imovelQuartos')?.value || 0,
+        suites: document.getElementById('imovelSuites')?.value || 0,
+        banheiros: document.getElementById('imovelBanheiros')?.value || 0,
+        vagas: document.getElementById('imovelVagas')?.value || 0,
+        descricao: document.getElementById('imovelDescricao')?.value,
+        tourUrl: document.getElementById('imovelTourUrl')?.value,
+        videoUrl: document.getElementById('imovelVideoUrl')?.value,
+        capaUrl: document.getElementById('imovelCapaUrl')?.value,
+        corretorId: document.getElementById('imovelCorretor')?.value || currentUser.id,
+        construtoraId: document.getElementById('imovelConstrutora')?.value || null,
+        empreendimentoId: document.getElementById('imovelEmpreendimento')?.value || null,
+        userId: currentUser.id
+    };
+    const result = await api('saveImovel', payload);
+    if (result.success) {
+        showNotification(result.message || 'Imóvel salvo!');
+        toggleImovelForm();
+        await carregarImoveis();
+        await carregarStatsImoveis();
+    } else showNotification('❌ ' + (result.error || 'Erro'));
+}
+
+async function abrirImovel(id) {
+    const result = await api('getImovel', { id }, 'GET');
+    if (!result.success) { showNotification('❌ Imóvel não encontrado'); return; }
+    activeImovel = result.imovel;
+    const i = activeImovel;
+    const titleEl = document.getElementById('im-titulo');
+    if (titleEl) titleEl.textContent = `${i.codigo||''} – ${i.titulo||''}`;
+    const vV = i.valor_venda ? `R$ ${Number(i.valor_venda).toLocaleString('pt-BR')}` : '-';
+    const vL = i.valor_locacao ? `R$ ${Number(i.valor_locacao).toLocaleString('pt-BR')}/mês` : '-';
+    const info = document.getElementById('im-info');
+    if (info) info.innerHTML = `
+        <div class="field-group"><label>Tipo</label><div>${i.tipo||'-'}</div></div>
+        <div class="field-group"><label>Finalidade</label><div>${labelFinalidade(i.finalidade)}</div></div>
+        <div class="field-group"><label>Status</label><div><span class="status">${labelStatusImovel(i.status)}</span></div></div>
+        <div class="field-group"><label>Categoria (Site)</label><div>${i.categoria_site === 'lancamentos' ? 'Lançamento' : 'Pronto'}</div></div>
+        <div class="field-group"><label>Corretor</label><div>${i.corretor_nome||'-'}</div></div>
+        <div class="field-group"><label>Endereço</label><div>${i.endereco||''} ${i.numero||''} – ${i.bairro||''}</div></div>
+        <div class="field-group"><label>Cidade</label><div>${i.cidade||''} / ${i.estado||''}</div></div>
+        <div class="field-group"><label>Valor Venda</label><div>${vV}</div></div>
+        <div class="field-group"><label>Valor Locação</label><div>${vL}</div></div>
+        <div class="field-group"><label>Área</label><div>${i.area_util||'-'} m² úteis / ${i.area_total||'-'} m² total</div></div>
+        <div class="field-group"><label>Quartos / Suítes</label><div>${i.quartos||0} / ${i.suites||0}</div></div>
+        <div class="field-group"><label>Banheiros / Vagas</label><div>${i.banheiros||0} / ${i.vagas||0}</div></div>
+        <div class="field-group"><label>Construtora</label><div>${i.construtora_nome||'-'}</div></div>
+        <div class="field-group" style="grid-column:1/-1"><label>Descrição</label><div>${i.descricao||'-'}</div></div>
+    `;
+    const leadsBox = document.getElementById('im-leads');
+    if (leadsBox) {
+        leadsBox.innerHTML = (i.leads_interessados||[]).map(l =>
+            `<div class="admin-list-item"><div><strong>${l.lead_nome||''}</strong> – ${l.tel||l.whatsapp||''}<br><small>${l.interesse||''} • ${l.status_interesse||''}</small></div></div>`
+        ).join('') || '<p style="color:var(--text-muted)">Nenhum lead vinculado.</p>';
+    }
+    const btnDel = document.getElementById('btnDeleteImovel');
+    if (btnDel) btnDel.style.display = (currentUser.role === 'Admin' || currentUser.role === 'Root') ? 'inline-flex' : 'none';
+    if (typeof openModalEl === 'function') openModalEl('imovelModal');
+    else {
+        const m = document.getElementById('imovelModal');
+        if (m) { m.style.display = 'flex'; m.classList.add('open'); }
+    }
+}
+
+function closeImovelModal() {
+    if (typeof closeModalEl === 'function') closeModalEl('imovelModal', () => { activeImovel = null; });
+    else {
+        const m = document.getElementById('imovelModal');
+        if (m) { m.style.display = 'none'; m.classList.remove('open'); }
+        activeImovel = null;
+    }
+}
+
+function editarImovelAtual() {
+    if (!activeImovel) return;
+    const i = activeImovel;
+    const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val ?? ''; };
+    set('imovelId', i.id);
+    set('imovelTitulo', i.titulo);
+    set('imovelTipo', i.tipo || 'Apartamento');
+    set('imovelFinalidade', i.finalidade || 'venda');
+    set('imovelStatus', i.status || 'disponivel');
+    set('imovelCategoriaSite', i.categoria_site || 'prontos');
+    set('imovelEndereco', i.endereco);
+    set('imovelNumero', i.numero);
+    set('imovelBairro', i.bairro);
+    set('imovelCidade', i.cidade);
+    set('imovelEstado', i.estado);
+    set('imovelCep', i.cep);
+    set('imovelValorVenda', i.valor_venda);
+    set('imovelValorLocacao', i.valor_locacao);
+    set('imovelValorCondominio', i.valor_condominio);
+    set('imovelValorIptu', i.valor_iptu);
+    set('imovelAreaTotal', i.area_total);
+    set('imovelAreaUtil', i.area_util);
+    set('imovelQuartos', i.quartos);
+    set('imovelSuites', i.suites);
+    set('imovelBanheiros', i.banheiros);
+    set('imovelVagas', i.vagas);
+    set('imovelDescricao', i.descricao);
+    set('imovelTourUrl', i.tour_url);
+    set('imovelVideoUrl', i.video_url);
+    set('imovelCapaUrl', i.capa_url);
+    set('imovelCorretor', i.corretor_id || currentUser.id);
+    set('imovelConstrutora', i.construtora_id || '');
+    set('imovelEmpreendimento', i.empreendimento_id || '');
+    closeImovelModal();
+    toggleImovelForm(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+async function mudarStatusImovel(status) {
+    if (!activeImovel) return;
+    const result = await api('updateImovelStatus', { id: activeImovel.id, status, userId: currentUser.id });
+    if (result.success) {
+        showNotification('Status atualizado!');
+        closeImovelModal();
+        await carregarImoveis();
+        await carregarStatsImoveis();
+    } else showNotification('❌ ' + (result.error || 'Erro'));
+}
+
+async function excluirImovelAtual() {
+    if (!activeImovel || !['Admin','Root'].includes(currentUser.role)) return;
+    const ok = (typeof confirmDialog === 'function')
+        ? await confirmDialog('Excluir imóvel', `Remover "${activeImovel.titulo}"?`)
+        : confirm(`Remover "${activeImovel.titulo}"?`);
+    if (!ok) return;
+    const result = await api('deleteImovel', { id: activeImovel.id, role: currentUser.role, userId: currentUser.id });
+    if (result.success) {
+        showNotification('Imóvel removido');
+        closeImovelModal();
+        await carregarImoveis();
+        await carregarStatsImoveis();
+    }
+}
+
+</script>
+<script src="imoveis-loader.js"></script>
+<script src="imoveis-data.js"></script>
+
+<div id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+  <div class="confirm-box">
+    <h3 id="confirmTitle">Confirmar exclusão</h3>
+    <p id="confirmMessage"></p>
+    <div class="confirm-actions">
+      <button type="button" class="btn-secondary" id="confirmCancelBtn">Cancelar</button>
+      <button type="button" class="btn-danger" id="confirmOkBtn">Excluir</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

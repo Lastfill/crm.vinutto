@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste VINUTTO CRM</title>
+</head>
+<body>
+    <h1>Arquivos do VINUTTO CRM</h1>
+    <p>Os arquivos foram organizados e a função de resetar senhas agora é exclusiva para o administrador.</p>
+
+    <h2>📁 Arquivos criados:</h2>
+    <ul>
+        <li><strong>index.html</strong> - Estrutura HTML do sistema</li>
+        <li><strong>styles.css</strong> - Estilos e design aprimorado</li>
+        <li><strong>script.js</strong> - JavaScript com verificações de segurança</li>
+        <li><strong>README.md</strong> - Documentação completa</li>
+    </ul>
+
+    <h2>🔐 Segurança aprimorada:</h2>
+    <ul>
+        <li>✅ Função resetUserPassword() verifica se currentUser.id === "admin"</li>
+        <li>✅ populateLists() só cria botões de reset se for admin</li>
+        <li>✅ Painel admin oculto para corretores</li>
+        <li>✅ Botão "Senhas" só aparece para admin</li>
+    </ul>
+
+    <h2>🎯 Para testar:</h2>
+    <ol>
+        <li>Abra index.html no navegador</li>
+        <li>Faça login como admin (admin/123)</li>
+        <li>Clique em "⚙️ Senhas" para ver os botões de reset</li>
+        <li>Faça logout e login como corretor</li>
+        <li>Verifique que o botão "Senhas" não aparece</li>
+    </ol>
+</body>
+</html>
