@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 $host = "localhost";
 $db = "u744652542_crm";
 $user = "u744652542_u744652542_crm";
-$pass = "~*ykfUaZ2kC8";
+$pass = "~*ykfUC8";
 
 // Config local de desenvolvimento (XAMPP etc.) - nunca subir este arquivo pro Hostinger.
 $localConfig = __DIR__ . '/config.local.php';
